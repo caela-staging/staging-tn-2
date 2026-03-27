@@ -1,0 +1,562 @@
+import { Link } from 'react-router-dom';
+import mckenaPhoto from '/Images/IMG_7985 (1).jpeg';
+import { CountUpStat } from '@/components/CountUpStat';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { motion } from 'motion/react';
+import { SpotlightCard } from '@/components/SpotlightCard';
+import { AnimatedGradientText } from '@/components/AnimatedGradientText';
+import { CompassButton } from '@/components/ui/compass-button';
+import {
+  CheckCircle2,
+  ArrowRight,
+  Shield,
+  Target,
+  TrendingUp,
+  Users,
+  Compass,
+} from 'lucide-react';
+import { TestimonialsStack } from '@/components/TestimonialsStack';
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } },
+};
+
+const stagger = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
+};
+
+const stats = [
+  { end: 10, suffix: '+', prefix: '', label: 'Years Coaching the Trades' },
+  { end: 500, suffix: '+', prefix: '', label: 'Businesses Transformed' },
+  { end: 40, suffix: 'M+', prefix: '$', label: 'Revenue Generated for Clients' },
+  { end: 4, suffix: '', prefix: '', label: 'Trade Specialties' },
+];
+
+const team = [
+  {
+    name: 'McKena Harless',
+    role: 'Founder & Lead Coach',
+    img: mckenaPhoto,
+    bio: 'McKena spent over a decade working inside home service companies before launching True North Strategies. She\'s seen every growth ceiling a trades business can hit — and she\'s built the frameworks to break through them. Her coaching style is direct, honest, and grounded in what actually works in the field, not on a whiteboard.',
+    credentials: ['10+ years in home service operations', 'Coached 200+ trades business owners', 'Specializes in CSR systems and leadership development'],
+  },
+  {
+    name: 'David Chen',
+    role: 'Sales & CSR Coach',
+    img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop',
+    bio: 'David brings a front-line perspective to every coaching engagement. He\'s spent years inside service dispatch centers and on in-home sales calls — understanding exactly where revenue is won and lost. He builds the scripts, training systems, and accountability structures that stick because they come from real experience.',
+    credentials: ['Former CSR manager and in-home sales trainer', 'Driven 30–60% booking rate improvements consistently', 'Expert in flat-rate pricing and in-home presentation'],
+  },
+  {
+    name: 'Marcus Johnson',
+    role: 'Business Operations Coach',
+    img: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1974&auto=format&fit=crop',
+    bio: 'Marcus is the operational architect of the True North team. He focuses on the systems and infrastructure that allow trades businesses to scale without chaos — dispatch efficiency, hiring pipelines, performance management, and financial reporting. His clients describe him as the person who finally made their business feel like a real company.',
+    credentials: ['Built operational systems for 100+ service companies', 'Specializes in scaling past the $3M ceiling', 'Expert in KPI dashboards and P&L optimization'],
+  },
+  {
+    name: 'Sarah Jenkins',
+    role: 'CSR & Customer Experience Coach',
+    img: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop',
+    bio: 'Sarah has coached CSR teams across dozens of home service companies, transforming how front-line staff handle every inbound call. Her training programs are practical, repeatable, and built around real call scenarios. She believes the phone call is the most valuable real estate in any service business — and she proves it.',
+    credentials: ['Specialized in inbound call conversion coaching', 'Designed CSR training programs used company-wide', 'Drives average booking rate improvements of 25–40%'],
+  },
+];
+
+const values = [
+  {
+    icon: Shield,
+    title: 'Honest Over Comfortable',
+    body: 'We tell clients what they need to hear, not what feels good. Real growth starts with an accurate picture of where you are.',
+  },
+  {
+    icon: Target,
+    title: 'Results Over Theory',
+    body: 'Every framework we use has been tested in real trades businesses. We don\'t teach from textbooks — we teach from the field.',
+  },
+  {
+    icon: Users,
+    title: 'Partnership Over Prescription',
+    body: 'We don\'t hand you a playbook and disappear. We work alongside you, adjust in real time, and stay accountable to your outcomes.',
+  },
+  {
+    icon: TrendingUp,
+    title: 'Systems Over Heroics',
+    body: 'Sustainable growth isn\'t built on hustle — it\'s built on systems. We help you build a business that runs without depending on any one person.',
+  },
+];
+
+const turningPoints = [
+  'You stop being the bottleneck in your own business',
+  'Your team performs consistently — not just when you\'re watching',
+  'Revenue becomes predictable instead of seasonal and chaotic',
+  'You make decisions from data instead of gut feeling',
+  'Hiring stops feeling like gambling and starts feeling like a system',
+  'Your customers get the same excellent experience every time',
+  'You have time to work on the business, not just in it',
+  'Growth compounds — each improvement builds on the last',
+];
+
+
+export function About() {
+
+  return (
+    <main className="min-h-screen bg-background text-foreground overflow-hidden">
+
+      {/* ── HERO ─────────────────────────────────────────────────── */}
+      <section className="relative min-h-[70vh] flex items-center justify-center pt-28 pb-16 overflow-hidden bg-grain">
+        <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-primary/20 rounded-full filter blur-[100px] animate-pulse-glow z-0" />
+        <div className="absolute bottom-1/4 right-1/4 w-[28rem] h-[28rem] bg-amber-500/10 rounded-full filter blur-[120px] animate-pulse-glow z-0" style={{ animationDelay: '2s' }} />
+
+        <div className="absolute inset-0 z-0">
+          <img
+            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop"
+            alt="The True North team"
+            className="w-full h-full object-cover"
+            referrerPolicy="no-referrer"
+          />
+          <div className="absolute inset-0 bg-background/65" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+        </div>
+
+        <div className="container relative z-10 mx-auto px-6 md:px-12 text-center">
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            className="text-xs font-bold uppercase tracking-widest text-primary mb-6 flex items-center justify-center gap-3"
+          >
+            <span className="w-8 h-px bg-primary" />
+            Our Story
+            <span className="w-8 h-px bg-primary" />
+          </motion.p>
+
+          <motion.h1
+            initial="hidden"
+            animate="visible"
+            variants={fadeUp}
+            className="font-heading text-5xl md:text-7xl lg:text-8xl uppercase text-foreground mb-6 leading-none"
+          >
+            About <br />
+            <AnimatedGradientText>True North</AnimatedGradientText>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.4 }}
+            className="text-2xl font-script text-primary max-w-2xl mx-auto mb-12"
+          >
+            A team of coaches who have lived the trades — and built the playbook to prove it.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+          >
+            <CompassButton to="/connect">Book a Discovery Call</CompassButton>
+            <CompassButton href="#team" className="bg-transparent text-primary hover:bg-primary hover:text-[#FCECBB]" arrowsClassName="opacity-0 group-hover:opacity-100 transition-opacity duration-300">Meet the Team</CompassButton>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── STATS BAR ─────────────────────────────────────────────── */}
+      <section className="bg-foreground text-background">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          variants={stagger}
+          viewport={{ once: true }}
+          className="grid grid-cols-2 md:grid-cols-4"
+        >
+          {stats.map((s, i) => (
+            <motion.div
+              key={s.label}
+              variants={fadeUp}
+              className={`py-8 px-6 flex flex-col items-center justify-center relative ${i < 3 ? 'border-r border-background/10' : ''}`}
+            >
+              <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
+              <CountUpStat {...s} className="text-background" />
+            </motion.div>
+          ))}
+        </motion.div>
+      </section>
+
+      {/* ── PHILOSOPHY / MISSION ──────────────────────────────────── */}
+      <section className="py-24 md:py-32 bg-background bg-topography relative overflow-hidden">
+        <motion.div
+          initial={{ x: 100, opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          transition={{ duration: 1.5, ease: 'easeOut' }}
+          viewport={{ once: true }}
+          className="absolute top-1/2 right-0 -translate-y-1/2 text-[16vw] font-heading text-foreground/[0.02] leading-none pointer-events-none select-none"
+        >
+          NORTH
+        </motion.div>
+
+        <div className="container mx-auto px-6 md:px-12 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+            <motion.div
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <div className="absolute inset-0 bg-primary/20 translate-x-4 translate-y-4" />
+              <img
+                src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2232&auto=format&fit=crop"
+                alt="True North coaching session"
+                className="relative z-10 w-full aspect-square object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                referrerPolicy="no-referrer"
+              />
+            </motion.div>
+
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              variants={stagger}
+              viewport={{ once: true }}
+              className="space-y-8"
+            >
+              <motion.div variants={fadeUp}>
+                <p className="text-xs font-bold uppercase tracking-widest text-primary mb-4 flex items-center gap-3">
+                  <span className="w-8 h-px bg-primary" />
+                  Our Philosophy
+                </p>
+                <h2 className="font-heading text-4xl md:text-5xl uppercase text-foreground leading-none mb-6">
+                  We Don't Do <AnimatedGradientText>Generic</AnimatedGradientText>
+                </h2>
+              </motion.div>
+
+              <motion.p variants={fadeUp} className="text-foreground/80 leading-relaxed text-lg">
+                True North Strategies was built on a single conviction: home service companies deserve coaches who actually understand their world. Not consultants who adapt corporate playbooks for the trades. Coaches who have been in dispatch centers, on service calls, and in the financial trenches of a $2M HVAC company trying to figure out why the margins aren't there.
+              </motion.p>
+              <motion.p variants={fadeUp} className="text-foreground/80 leading-relaxed text-lg">
+                We built our methodology inside real trades businesses — refining what works, discarding what doesn't, and building systems that hold up under the pressure of a busy season. Every framework we teach has been field-tested. Every result we promise is one we've already delivered.
+              </motion.p>
+              <motion.p variants={fadeUp} className="text-foreground/80 leading-relaxed text-lg">
+                Our name says it all. True North isn't a destination — it's a direction. We help home service owners find theirs, and we walk alongside them every step of the way.
+              </motion.p>
+
+              <motion.div variants={fadeUp}>
+                <CompassButton to="/connect">Book a Discovery Call</CompassButton>
+              </motion.div>
+            </motion.div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ── TEAM ─────────────────────────────────────────────────── */}
+      <section id="team" className="py-24 bg-background bg-grain relative border-t border-border/30">
+        <div className="container mx-auto px-6 md:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-20"
+          >
+            <p className="text-xs font-bold uppercase tracking-widest text-primary mb-4 flex items-center justify-center gap-3">
+              <span className="w-8 h-px bg-primary" />
+              The People Behind the Work
+              <span className="w-8 h-px bg-primary" />
+            </p>
+            <h2 className="font-heading text-4xl md:text-5xl uppercase text-foreground leading-none mb-6">
+              Meet the <AnimatedGradientText>Team</AnimatedGradientText>
+            </h2>
+            <p className="text-lg font-script text-primary max-w-xl mx-auto">
+              Every coach on this team has lived the trades — we're not theorists.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={stagger}
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          >
+            {team.map((member, i) => (
+              <motion.div key={i} variants={fadeUp}>
+                <SpotlightCard className="group bg-card border-border/40 hover:border-primary/40 transition-all duration-500 hover:shadow-[0_8px_30px_rgba(232,96,10,0.12)] rounded-none h-full">
+                  <div className="flex flex-col sm:flex-row gap-0 h-full">
+                    {/* Photo */}
+                    <div className="relative w-full sm:w-48 shrink-0 overflow-hidden">
+                      <img
+                        src={member.img}
+                        alt={member.name}
+                        className="w-full h-56 sm:h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                        referrerPolicy="no-referrer"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t sm:bg-gradient-to-r from-card via-transparent to-transparent" />
+                    </div>
+                    {/* Content */}
+                    <div className="p-8 flex flex-col justify-between flex-1">
+                      <div>
+                        <h3 className="font-heading text-2xl uppercase text-foreground mb-1">{member.name}</h3>
+                        <p className="text-primary uppercase tracking-widest text-xs font-semibold mb-5">{member.role}</p>
+                        <p className="text-muted-foreground text-sm leading-relaxed mb-6">{member.bio}</p>
+                        <ul className="space-y-2">
+                          {member.credentials.map((c, j) => (
+                            <li key={j} className="flex items-start gap-2">
+                              <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                              <span className="text-foreground/70 text-xs leading-relaxed">{c}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="mt-6">
+                        <Button asChild variant="link" className="text-foreground hover:text-primary p-0 h-auto font-bold uppercase tracking-wider group/btn text-xs">
+                          <Link to="/connect" className="flex items-center gap-2">
+                            Book a Discovery Call
+                            <ArrowRight className="w-3 h-3 group-hover/btn:translate-x-1 transition-transform" />
+                          </Link>
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </SpotlightCard>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── VALUES / VALUE PROPOSITION ────────────────────────────── */}
+      <section className="py-24 bg-foreground relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
+          <div className="text-[20vw] font-heading text-background/[0.03] leading-none absolute -bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap">VALUES</div>
+        </div>
+
+        <div className="container mx-auto px-6 md:px-12 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <p className="text-xs font-bold uppercase tracking-widest text-primary mb-4 flex items-center justify-center gap-3">
+              <span className="w-8 h-px bg-primary" />
+              What We Stand For
+              <span className="w-8 h-px bg-primary" />
+            </p>
+            <h2 className="font-heading text-4xl md:text-5xl uppercase text-background leading-none">
+              How We <AnimatedGradientText>Operate</AnimatedGradientText>
+            </h2>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={stagger}
+            viewport={{ once: true }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          >
+            {values.map(({ icon: Icon, title, body }, i) => (
+              <motion.div key={i} variants={fadeUp}>
+                <SpotlightCard className="p-8 bg-background/5 border border-background/10 hover:border-primary/40 transition-all duration-300 rounded-none hover:shadow-[0_0_25px_rgba(232,96,10,0.12)] h-full group">
+                  <div className="w-12 h-12 bg-background/10 border border-background/10 group-hover:border-primary/40 flex items-center justify-center mb-6 transition-colors duration-300">
+                    <Icon className="w-6 h-6 text-primary group-hover:scale-110 transition-transform duration-300" />
+                  </div>
+                  <h4 className="font-heading text-xl uppercase text-background mb-4 leading-tight">{title}</h4>
+                  <p className="text-background/60 text-sm leading-relaxed">{body}</p>
+                </SpotlightCard>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── TURNING POINT ─────────────────────────────────────────── */}
+      <section className="py-24 bg-background relative overflow-hidden border-t border-border/30">
+        <div className="container mx-auto px-6 md:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              variants={stagger}
+              viewport={{ once: true }}
+            >
+              <motion.p variants={fadeUp} className="text-xs font-bold uppercase tracking-widest text-primary mb-4 flex items-center gap-3">
+                <span className="w-8 h-px bg-primary" />
+                The Turning Point
+              </motion.p>
+              <motion.h2 variants={fadeUp} className="font-heading text-4xl md:text-5xl uppercase text-foreground leading-none mb-6">
+                This Is What <AnimatedGradientText>Changes</AnimatedGradientText>
+              </motion.h2>
+              <motion.p variants={fadeUp} className="text-foreground/80 leading-relaxed text-lg mb-10">
+                Our clients don't just grow revenue — they change how they operate, how they lead, and how they live. These are the shifts we see happen consistently when a home service owner commits to the process.
+              </motion.p>
+              <motion.div variants={fadeUp}>
+                <CompassButton to="/connect">Book a Discovery Call</CompassButton>
+              </motion.div>
+            </motion.div>
+
+            <motion.ul
+              initial="hidden"
+              whileInView="visible"
+              variants={stagger}
+              viewport={{ once: true }}
+              className="space-y-4"
+            >
+              {turningPoints.map((point, i) => (
+                <motion.li
+                  key={i}
+                  variants={fadeUp}
+                  className="flex items-start gap-4 p-4 bg-card border border-border/40 hover:border-primary/40 transition-colors duration-300 group"
+                >
+                  <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5 group-hover:scale-110 transition-transform duration-300" />
+                  <span className="text-foreground text-sm leading-relaxed">{point}</span>
+                </motion.li>
+              ))}
+            </motion.ul>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ── WHY TRUE NORTH VS OTHERS ──────────────────────────────── */}
+      <section className="py-24 bg-background bg-topography relative overflow-hidden border-t border-border/30">
+        <div className="container mx-auto px-6 md:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="font-heading text-4xl md:text-5xl uppercase text-foreground leading-none">
+              Why <AnimatedGradientText>True North</AnimatedGradientText>
+            </h2>
+            <p className="text-lg font-script text-primary mt-4 max-w-lg mx-auto">
+              There are a lot of coaches. Here's what makes this one different.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={stagger}
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-0 border border-border/40 divide-y md:divide-y-0 md:divide-x divide-border/40"
+          >
+            {[
+              {
+                icon: Compass,
+                label: 'Trades-Only Focus',
+                contrast: 'Generic coaches serve every industry and adapt their material to yours.',
+                ours: 'Every True North framework was built specifically for home service companies — HVAC, plumbing, electrical, and garage doors.',
+              },
+              {
+                icon: Shield,
+                label: 'Coaches Who\'ve Done It',
+                contrast: 'Many coaches teach from courses and certifications.',
+                ours: 'Our coaches have worked inside the businesses they coach — dispatch boards, service calls, CSR floors. They\'ve lived the work.',
+              },
+              {
+                icon: TrendingUp,
+                label: 'Outcomes, Not Hours',
+                contrast: 'Some coaching programs sell you a block of hours and call it done.',
+                ours: 'We define measurable outcomes at the start of every engagement and stay accountable to them. Your results are our report card.',
+              },
+            ].map(({ icon: Icon, label, contrast, ours }, i) => (
+              <motion.div key={i} variants={fadeUp} className="p-10 group hover:bg-primary/5 transition-colors duration-300">
+                <div className="w-12 h-12 bg-card border border-border/50 group-hover:border-primary/50 flex items-center justify-center mb-6 transition-colors duration-300">
+                  <Icon className="w-6 h-6 text-primary group-hover:scale-110 transition-transform duration-300" />
+                </div>
+                <h4 className="font-heading text-2xl uppercase text-foreground mb-6">{label}</h4>
+                <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-through decoration-muted-foreground/40">{contrast}</p>
+                <p className="text-foreground text-sm leading-relaxed font-medium">{ours}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      <TestimonialsStack />
+
+      {/* ── CTA FORM ─────────────────────────────────────────────── */}
+      <section className="py-32 bg-background relative overflow-hidden">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[40rem] h-[20rem] bg-primary/10 rounded-full filter blur-[100px] z-0" />
+
+        <div className="container relative z-10 mx-auto px-6 md:px-12 max-w-4xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="font-heading text-4xl md:text-5xl uppercase text-foreground mb-6 leading-none">
+              Find Your <AnimatedGradientText>True North</AnimatedGradientText>
+            </h2>
+            <p className="text-2xl font-script text-primary">
+              Ready to stop guessing? Let's have an honest conversation about where your business is headed.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="glass-card p-8 md:p-12 relative overflow-hidden"
+          >
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50" />
+            <form className="space-y-8 relative z-10">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-3">
+                  <Label htmlFor="firstName" className="text-foreground uppercase tracking-wider text-xs font-bold">First Name</Label>
+                  <Input id="firstName" placeholder="John" className="bg-background/50 border-border/50 text-foreground rounded-none focus-visible:ring-primary focus-visible:border-primary h-12 transition-colors" />
+                </div>
+                <div className="space-y-3">
+                  <Label htmlFor="lastName" className="text-foreground uppercase tracking-wider text-xs font-bold">Last Name</Label>
+                  <Input id="lastName" placeholder="Doe" className="bg-background/50 border-border/50 text-foreground rounded-none focus-visible:ring-primary focus-visible:border-primary h-12 transition-colors" />
+                </div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-3">
+                  <Label htmlFor="email" className="text-foreground uppercase tracking-wider text-xs font-bold">Email Address</Label>
+                  <Input id="email" type="email" placeholder="john@example.com" className="bg-background/50 border-border/50 text-foreground rounded-none focus-visible:ring-primary focus-visible:border-primary h-12 transition-colors" />
+                </div>
+                <div className="space-y-3">
+                  <Label htmlFor="phone" className="text-foreground uppercase tracking-wider text-xs font-bold">Phone Number</Label>
+                  <Input id="phone" type="tel" placeholder="(555) 123-4567" className="bg-background/50 border-border/50 text-foreground rounded-none focus-visible:ring-primary focus-visible:border-primary h-12 transition-colors" />
+                </div>
+              </div>
+              <div className="space-y-3">
+                <Label htmlFor="trade" className="text-foreground uppercase tracking-wider text-xs font-bold">Primary Trade</Label>
+                <select id="trade" className="flex h-12 w-full bg-background/50 border border-border/50 px-3 py-2 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary rounded-none transition-colors">
+                  <option value="">Select your trade...</option>
+                  <option value="hvac">HVAC</option>
+                  <option value="plumbing">Plumbing</option>
+                  <option value="electrical">Electrical</option>
+                  <option value="garage">Garage Doors</option>
+                  <option value="other">Other Home Service</option>
+                </select>
+              </div>
+              <div className="space-y-3">
+                <Label htmlFor="goals" className="text-foreground uppercase tracking-wider text-xs font-bold">What are your biggest challenges?</Label>
+                <Textarea id="goals" placeholder="Tell us about your current roadblocks..." className="bg-background/50 border-border/50 text-foreground rounded-none focus-visible:ring-primary focus-visible:border-primary min-h-[140px] resize-none transition-colors" />
+              </div>
+              <CompassButton type="submit" className="w-full">Book a Discovery Call</CompassButton>
+            </form>
+          </motion.div>
+        </div>
+      </section>
+
+    </main>
+  );
+}
