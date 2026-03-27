@@ -144,6 +144,16 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileMenuOpen]);
+
   const toggleTheme = () => {
     const newTheme = !isDark;
     setIsDark(newTheme);
@@ -217,7 +227,7 @@ export function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed inset-0 bg-background/95 backdrop-blur-xl flex flex-col justify-center items-center gap-6 lg:hidden z-40 overflow-y-auto py-20 px-6"
+              className="fixed inset-0 bg-background flex flex-col justify-center items-center gap-6 lg:hidden z-[48] overflow-y-auto py-20 px-6"
             >
               <Link to="/" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-heading uppercase text-foreground hover:text-primary transition-colors">Home</Link>
               <Link to="/about" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-heading uppercase text-foreground hover:text-primary transition-colors">About</Link>

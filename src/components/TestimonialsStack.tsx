@@ -1,10 +1,14 @@
+import { useState } from 'react';
 import { motion } from 'motion/react';
-import { CardStack, CardStackItem } from '@/components/ui/card-stack';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { AnimatedGradientText } from '@/components/AnimatedGradientText';
 
-// ── Shared testimonial pool ───────────────────────────────────────────────────
+// ── Testimonial data ──────────────────────────────────────────────────────────
 
-export interface TestimonialCard extends CardStackItem {
+export interface TestimonialCard {
+  id: number;
+  title: string;
+  description: string;
   company: string;
   trade: string;
   img?: string;
@@ -69,7 +73,7 @@ export const allTestimonials: TestimonialCard[] = [
   },
   {
     id: 8,
-    title: 'McKena changed how I lead.',
+    title: 'Marcus Harrell',
     description: "I came in thinking I had a revenue problem. Turns out I had a systems problem. True North fixed it — and then some.",
     company: 'Harrell Home Services',
     trade: 'HVAC',
@@ -77,79 +81,34 @@ export const allTestimonials: TestimonialCard[] = [
   },
 ];
 
-// ── Custom testimonial card renderer ─────────────────────────────────────────
-
-function TestimonialCard({ item, active }: { item: TestimonialCard; active: boolean }) {
-  return (
-    <div
-      className="relative h-full w-full flex flex-col justify-between p-8 md:p-10 overflow-hidden"
-      style={{ opacity: active ? 1 : 0.85 }}
-    >
-      {/* Background photo */}
-      {item.img && (
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${item.img})` }}
-        />
-      )}
-      {/* Dark overlay so text is always readable */}
-      <div className="absolute inset-0 bg-[#1a1919]/75" />
-      {/* Orange gradient tint at top */}
-      <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-primary/20 to-transparent" />
-
-      {/* Top accent line */}
-      <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent opacity-80" />
-
-      {/* Quote mark */}
-      <div className="font-heading text-7xl text-primary/30 leading-none select-none absolute top-4 right-8 z-10">"</div>
-
-      {/* Quote */}
-      <blockquote className="font-heading text-xl md:text-2xl uppercase text-white leading-snug relative z-10 pr-8">
-        {item.description}
-      </blockquote>
-
-      {/* Attribution */}
-      <div className="flex items-end justify-between mt-6 relative z-10">
-        <div>
-          <p className="text-primary font-semibold uppercase tracking-widest text-xs">
-            — {item.title}
-          </p>
-          <p className="text-white/75 text-xs uppercase tracking-wider mt-0.5">
-            {item.company}
-          </p>
-        </div>
-        <span className="text-xs font-bold uppercase tracking-widest text-white/90 border border-white/30 px-2 py-1">
-          {item.trade}
-        </span>
-      </div>
-
-      {/* Bottom accent */}
-      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-primary/30" />
-    </div>
-  );
-}
-
-// ── Section wrapper ───────────────────────────────────────────────────────────
+// ── Component ─────────────────────────────────────────────────────────────────
 
 interface Props {
-  /** Subset of testimonials to show — defaults to all */
   items?: TestimonialCard[];
-  /** Dark background variant (for use on light sections) — default false */
   dark?: boolean;
 }
 
 export function TestimonialsStack({ items = allTestimonials, dark = false }: Props) {
+  const [active, setActive] = useState(0);
+  const len = items.length;
+
+  const prev = () => setActive((a) => (a - 1 + len) % len);
+  const next = () => setActive((a) => (a + 1) % len);
+
+  // Returns -1 (prev), 0 (active), 1 (next), or null (hidden)
+  const getOffset = (i: number): -1 | 0 | 1 | null => {
+    const diff = ((i - active) % len + len) % len;
+    if (diff === 0) return 0;
+    if (diff === 1) return 1;
+    if (diff === len - 1) return -1;
+    return null;
+  };
+
   return (
     <section className={`py-24 relative overflow-hidden border-t border-border/30 ${dark ? 'bg-foreground' : 'bg-background'}`}>
-      {/* Subtle background word */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[18vw] font-heading leading-none pointer-events-none select-none whitespace-nowrap"
-        style={{ color: dark ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.025)' }}
-      >
-        RESULTS
-      </div>
 
+      {/* Heading */}
       <div className="container mx-auto px-6 md:px-12 relative z-10">
-        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -157,7 +116,7 @@ export function TestimonialsStack({ items = allTestimonials, dark = false }: Pro
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <p className={`text-xs font-bold uppercase tracking-widest mb-4 flex items-center justify-center gap-3 ${dark ? 'text-primary' : 'text-primary'}`}>
+          <p className="text-primary text-xs font-bold uppercase tracking-widest mb-4 flex items-center justify-center gap-3">
             <span className="w-8 h-px bg-primary" />
             From Our Partners
             <span className="w-8 h-px bg-primary" />
@@ -170,31 +129,101 @@ export function TestimonialsStack({ items = allTestimonials, dark = false }: Pro
             Real results from real trades businesses.
           </p>
         </motion.div>
-
-        {/* Card Stack */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
-        >
-          <CardStack
-            items={items}
-            cardWidth={560}
-            cardHeight={280}
-            overlap={0.42}
-            spreadDeg={44}
-            autoAdvance
-            intervalMs={3500}
-            pauseOnHover
-            showDots
-            loop
-            renderCard={(item, { active }) => (
-              <TestimonialCard item={item as TestimonialCard} active={active} />
-            )}
-          />
-        </motion.div>
       </div>
+
+      {/* Carousel */}
+      <div
+        className="relative w-full"
+        style={{ height: 420, perspective: '1800px', perspectiveOrigin: '50% 50%' }}
+      >
+        {/* Soft glow behind center */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[580px] h-[380px] rounded-full bg-primary/10 blur-[90px] pointer-events-none" />
+
+        {items.map((item, i) => {
+          const offset = getOffset(i);
+          if (offset === null) return null;
+
+          const isActive = offset === 0;
+
+          return (
+            <motion.div
+              key={item.id}
+              onClick={() => !isActive && setActive(i)}
+              animate={{
+                x: offset * 480,
+                rotateY: offset * -18,
+                scale: isActive ? 1 : 0.82,
+                opacity: isActive ? 1 : 0.65,
+              }}
+              transition={{ type: 'spring', stiffness: 280, damping: 30 }}
+              style={{
+                position: 'absolute',
+                left: '50%',
+                top: '50%',
+                marginLeft: -260,
+                marginTop: -175,
+                width: 520,
+                height: 350,
+                transformStyle: 'preserve-3d',
+                zIndex: isActive ? 10 : 5,
+                cursor: isActive ? 'default' : 'pointer',
+              }}
+              className="overflow-hidden rounded-xl shadow-2xl"
+            >
+              {/* Background image */}
+              {item.img && (
+                <img
+                  src={item.img}
+                  alt={item.title}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                  draggable={false}
+                />
+              )}
+
+              {/* Overlays */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-black/40" />
+
+              {/* Trade badge — top right */}
+              <span className="absolute top-4 right-4 text-[10px] font-bold uppercase tracking-widest bg-black/50 text-white/90 px-2 py-1">
+                {item.trade}
+              </span>
+
+              {/* Quote */}
+              <div className="absolute inset-0 flex items-center justify-center px-8">
+                <p className={`text-white leading-relaxed text-center transition-all duration-300 ${isActive ? 'text-sm opacity-90' : 'text-xs opacity-0'}`}>
+                  "{item.description}"
+                </p>
+              </div>
+
+              {/* Name + company */}
+              <div className="absolute bottom-0 left-0 right-0 px-6 pb-5">
+                <h3 className="font-heading text-xl uppercase text-white leading-none">{item.title}</h3>
+                <p className="text-white/60 text-xs mt-1 uppercase tracking-wider">{item.company}</p>
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
+
+      {/* Navigation arrows */}
+      <div className="flex items-center justify-center gap-5 mt-8">
+        <button
+          onClick={prev}
+          aria-label="Previous testimonial"
+          className="w-10 h-10 border border-primary text-primary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors duration-200"
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+        <button
+          onClick={next}
+          aria-label="Next testimonial"
+          className="w-10 h-10 border border-primary text-primary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors duration-200"
+        >
+          <ChevronRight className="w-5 h-5" />
+        </button>
+      </div>
+
     </section>
   );
 }

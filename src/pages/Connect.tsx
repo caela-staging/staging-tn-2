@@ -6,6 +6,8 @@ import { motion } from 'motion/react';
 import { AnimatedGradientText } from '@/components/AnimatedGradientText';
 import { CompassButton } from '@/components/ui/compass-button';
 import { Compass, Phone, Mail, MapPin, CheckCircle2, ArrowRight } from 'lucide-react';
+import stackedLogo from '/Images/True North_stacked full logo grey.svg';
+import { FaqSection } from '@/components/FaqSection';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -77,6 +79,35 @@ export function Connect() {
         </div>
       </section>
 
+      {/* ── FAQ ──────────────────────────────────────────────────── */}
+      <FaqSection
+        heading="Before You"
+        headingHighlight="Reach Out"
+        subheading="Honest answers to the questions we get most."
+        items={[
+          {
+            question: 'What happens after I submit this form?',
+            answer: 'A True North coach — not a salesperson — will reach out within one business day to schedule a 30-minute discovery call. You\'ll talk directly with someone who knows your trade.',
+          },
+          {
+            question: 'Is the discovery call free?',
+            answer: 'Yes. There\'s no charge and no obligation. It\'s a real conversation about your business, not a sales pitch. If we\'re not the right fit, we\'ll tell you.',
+          },
+          {
+            question: 'How much does coaching cost?',
+            answer: 'Pricing varies based on the scope of engagement and departments involved. We\'ll discuss options that make sense for your business size and goals on the discovery call — no surprises.',
+          },
+          {
+            question: 'Do I need to be a certain size to work with you?',
+            answer: 'We work with companies ranging from $500K to $10M+ in annual revenue. If you\'re serious about growth and willing to do the work, we want to talk.',
+          },
+          {
+            question: 'What if I\'m not sure coaching is right for me?',
+            answer: 'That\'s exactly what the discovery call is for. We\'ll give you honest feedback — even if that means telling you it\'s not the right time. We\'d rather build trust than push a bad fit.',
+          },
+        ]}
+      />
+
       {/* ── MAIN CONTENT: FORM + SIDEBAR ─────────────────────────── */}
       <section className="py-24 bg-background bg-topography relative overflow-hidden">
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[50rem] h-[25rem] bg-primary/8 rounded-full filter blur-[120px] z-0" />
@@ -93,6 +124,7 @@ export function Connect() {
               className="glass-card p-8 md:p-12 relative overflow-hidden"
             >
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50" />
+              <img src={stackedLogo} alt="" className="absolute right-0 top-1/2 -translate-y-1/2 h-[85%] w-auto opacity-[0.12] pointer-events-none select-none" />
 
               <div className="mb-10">
                 <h2 className="font-heading text-3xl md:text-4xl uppercase text-foreground mb-3 leading-none">

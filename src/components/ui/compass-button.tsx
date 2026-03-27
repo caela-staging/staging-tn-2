@@ -82,7 +82,6 @@ export function CompassButton({
     return (
       <Link to={to} className={base}>
         {children}
-        {arrows}
       </Link>
     )
   }
@@ -91,7 +90,6 @@ export function CompassButton({
     return (
       <a href={href} className={base}>
         {children}
-        {arrows}
       </a>
     )
   }
@@ -99,7 +97,6 @@ export function CompassButton({
   return (
     <button type={type} onClick={onClick} disabled={disabled} className={base}>
       {children}
-      {arrows}
     </button>
   )
 }

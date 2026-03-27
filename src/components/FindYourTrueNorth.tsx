@@ -1,4 +1,5 @@
 import { motion } from 'motion/react';
+import stackedLogo from '/Images/True North_stacked full logo grey.svg';
 import { AnimatedGradientText } from '@/components/AnimatedGradientText';
 import { CompassButton } from '@/components/ui/compass-button';
 import { Input } from '@/components/ui/input';
@@ -39,6 +40,7 @@ export function FindYourTrueNorth() {
           className="glass-card p-5 md:p-8 lg:p-12 relative overflow-hidden"
         >
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50" />
+          <img src={stackedLogo} alt="" className="absolute right-0 top-1/2 -translate-y-1/2 h-[85%] w-auto opacity-[0.12] pointer-events-none select-none" />
           <form className="space-y-8 relative z-10">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-3">

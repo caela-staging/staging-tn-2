@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import mckenaPhoto from '/Images/IMG_7985 (1).jpeg';
+import stackedLogo from '/Images/True North_stacked full logo grey.svg';
 import { CountUpStat } from '@/components/CountUpStat';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -150,7 +151,7 @@ export function About() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.4 }}
-            className="text-2xl font-script text-primary max-w-2xl mx-auto mb-12"
+            className="text-3xl font-script text-primary max-w-2xl mx-auto mb-12 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
           >
             A team of coaches who have lived the trades — and built the playbook to prove it.
           </motion.p>
@@ -379,7 +380,7 @@ export function About() {
       </section>
 
       {/* ── TURNING POINT ─────────────────────────────────────────── */}
-      <section className="py-24 bg-background relative overflow-hidden border-t border-border/30">
+      <section className="py-24 bg-background bg-topography relative overflow-hidden border-t border-border/30">
         <div className="container mx-auto px-6 md:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
@@ -428,7 +429,7 @@ export function About() {
       </section>
 
       {/* ── WHY TRUE NORTH VS OTHERS ──────────────────────────────── */}
-      <section className="py-24 bg-background bg-topography relative overflow-hidden border-t border-border/30">
+      <section className="py-24 bg-background relative overflow-hidden border-t border-border/30">
         <div className="container mx-auto px-6 md:px-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -515,6 +516,7 @@ export function About() {
             className="glass-card p-8 md:p-12 relative overflow-hidden"
           >
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50" />
+            <img src={stackedLogo} alt="" className="absolute right-0 top-1/2 -translate-y-1/2 h-[85%] w-auto opacity-[0.12] pointer-events-none select-none" />
             <form className="space-y-8 relative z-10">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-3">

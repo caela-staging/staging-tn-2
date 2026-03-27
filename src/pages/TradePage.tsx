@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { FaqSection } from '@/components/FaqSection';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
@@ -330,7 +331,7 @@ export function TradePage({ data }: { data: TradePageData }) {
       </section>
 
       {/* ── COACHING BENEFITS ─────────────────────────────────────── */}
-      <section className="py-24 bg-background relative overflow-hidden">
+      <section className="py-24 bg-background bg-topography relative overflow-hidden">
         <div className="container mx-auto px-6 md:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -373,34 +374,79 @@ export function TradePage({ data }: { data: TradePageData }) {
         </div>
       </section>
 
+      <FaqSection
+        heading="Questions About"
+        headingHighlight="Working Together"
+        subheading="Straight answers before you take the next step."
+        items={[
+          {
+            question: 'Do you only work with companies in this trade?',
+            answer: 'We work exclusively with home service companies — HVAC, plumbing, electrical, and garage doors. This focus means every framework we use was built for businesses like yours, not adapted from generic coaching.',
+          },
+          {
+            question: 'What size company do you typically work with?',
+            answer: 'We work with home service companies ranging from $500K to $10M+ in annual revenue. Whether you\'re scaling past your first million or optimizing an established operation, we have the right approach.',
+          },
+          {
+            question: 'Do you work with both residential and commercial contractors?',
+            answer: 'Primarily residential service companies, though many of our clients do a mix of both. Our frameworks are strongest for companies running a residential service model with dispatch, CSRs, and recurring customer relationships.',
+          },
+          {
+            question: 'How long before I see results?',
+            answer: 'Most clients see measurable changes within 60–90 days. Significant revenue impact typically follows within 6 months — the timeline depends on your starting point and how quickly your team adopts new systems.',
+          },
+          {
+            question: 'What if I\'ve never worked with a business coach before?',
+            answer: 'Most of our clients haven\'t. The discovery call is designed to walk you through exactly what the process looks like — no jargon, no pressure. We\'ll tell you honestly whether it\'s the right fit.',
+          },
+        ]}
+      />
+
       {/* ── CTA BLOCK ─────────────────────────────────────────────── */}
       <section className="py-20 bg-foreground relative overflow-hidden">
-        <div className="absolute inset-0 bg-topography opacity-10 pointer-events-none" />
-
         {/* Icon watermark — right */}
         <div className="absolute right-[-4%] top-1/2 -translate-y-1/2 h-[200%] pointer-events-none select-none opacity-[0.06]">
           <img src={truenorthIcon} alt="" className="h-full w-auto" />
         </div>
 
         <div className="container mx-auto px-6 md:px-12 relative z-10">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            variants={stagger}
-            viewport={{ once: true }}
-            className="max-w-xl"
-          >
-            <motion.h2 variants={fadeUp} className="font-heading text-4xl md:text-5xl uppercase text-background mb-6 leading-none">
-              {data.ctaHeadline.split(' ').slice(0, -1).join(' ')}{' '}
-              <AnimatedGradientText>{data.ctaHeadline.split(' ').slice(-1)}</AnimatedGradientText>
-            </motion.h2>
-            <motion.p variants={fadeUp} className="text-background/70 leading-relaxed mb-10">
-              {data.ctaBody}
-            </motion.p>
-            <motion.div variants={fadeUp}>
-              <CompassButton href="#form">Book a Discovery Call</CompassButton>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              variants={stagger}
+              viewport={{ once: true }}
+            >
+              <motion.h2 variants={fadeUp} className="font-heading text-4xl md:text-5xl uppercase text-background mb-6 leading-none">
+                {data.ctaHeadline.split(' ').slice(0, -1).join(' ')}{' '}
+                <AnimatedGradientText>{data.ctaHeadline.split(' ').slice(-1)}</AnimatedGradientText>
+              </motion.h2>
+              <motion.p variants={fadeUp} className="text-background/70 leading-relaxed mb-10">
+                {data.ctaBody}
+              </motion.p>
+              <motion.div variants={fadeUp}>
+                <CompassButton href="#form">Book a Discovery Call</CompassButton>
+              </motion.div>
             </motion.div>
-          </motion.div>
+
+            {/* Video placeholder */}
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="relative aspect-video bg-card/10 border border-primary/30 flex items-center justify-center"
+            >
+              <div className="text-center">
+                <div className="w-16 h-16 rounded-full bg-primary/20 border-2 border-primary flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-6 h-6 text-primary ml-1" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+                <p className="text-background/40 text-sm uppercase tracking-widest font-bold">Video Coming Soon</p>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 

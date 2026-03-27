@@ -11,7 +11,7 @@ export function AnimatedGradientText({
   return (
     <span
       className={cn(
-        "inline-flex animate-text-gradient bg-[linear-gradient(to_right,#E8600A,theme(colors.amber.400),#E8600A)] bg-[200%_auto] bg-clip-text text-transparent",
+        "inline-flex bg-[linear-gradient(to_right,#E8600A,theme(colors.amber.400))] bg-clip-text text-transparent",
         className
       )}
     >

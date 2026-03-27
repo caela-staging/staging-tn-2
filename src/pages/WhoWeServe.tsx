@@ -8,6 +8,7 @@ import { ArrowRight, Zap, Droplets, Wind, DoorOpen, Wrench, Shield, Target, Tren
 import { TestimonialsStack } from '@/components/TestimonialsStack';
 import { FindYourTrueNorth } from '@/components/FindYourTrueNorth';
 import truenorthIcon from '/Images/True North_icon badge black.svg';
+import { FaqSection } from '@/components/FaqSection';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -139,16 +140,6 @@ export function WhoWeServe() {
 
       {/* ── INTRO / WHY TRADES-ONLY ───────────────────────────────── */}
       <section className="py-24 bg-background bg-topography relative overflow-hidden">
-        <motion.div
-          initial={{ x: 100, opacity: 0 }}
-          whileInView={{ x: 0, opacity: 1 }}
-          transition={{ duration: 1.5, ease: 'easeOut' }}
-          viewport={{ once: true }}
-          className="hidden md:block absolute top-1/2 right-0 -translate-y-1/2 text-[18vw] font-heading text-foreground/[0.02] leading-none pointer-events-none select-none"
-        >
-          TRADES
-        </motion.div>
-
         <div className="container mx-auto px-6 md:px-12 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <motion.div
@@ -319,9 +310,36 @@ export function WhoWeServe() {
 
       <TestimonialsStack />
 
+      <FaqSection
+        heading="Who We"
+        headingHighlight="Work With"
+        subheading="Everything you need to know about whether we're the right fit."
+        items={[
+          {
+            question: 'Which trades do you specialize in?',
+            answer: 'We work exclusively with HVAC, plumbing, electrical, and garage door companies. All of our coaching frameworks, scripts, and systems are built specifically for these businesses — not adapted from generic business coaching.',
+          },
+          {
+            question: 'What if my trade isn\'t listed?',
+            answer: 'If you\'re in the home service industry, reach out anyway. We\'ve worked with a range of trades beyond our four core specialties, and our frameworks often translate well to other service-based businesses.',
+          },
+          {
+            question: 'Do you work with companies outside the US?',
+            answer: 'Our primary focus is North American home service companies, but we do work with select international clients. Contact us and we\'ll let you know if we\'re a good fit for your market.',
+          },
+          {
+            question: 'Is there a minimum revenue requirement?',
+            answer: 'We typically work with companies doing $500K or more in annual revenue. Below that threshold, the coaching investment may not deliver the ROI you deserve. We\'ll always be honest about fit on the discovery call.',
+          },
+          {
+            question: 'How is this different from industry associations or trade groups?',
+            answer: 'Associations provide community and resources. We provide direct, accountable coaching with measurable outcomes. We\'re in the trenches with you — tracking metrics, adjusting strategy, and holding your team accountable to results.',
+          },
+        ]}
+      />
+
       {/* ── CTA BANNER ───────────────────────────────────────────── */}
       <section className="py-24 bg-foreground relative overflow-hidden">
-        <div className="absolute inset-0 bg-topography opacity-10 pointer-events-none" />
 
         {/* Icon watermark — right */}
         <div className="absolute right-[-4%] top-1/2 -translate-y-1/2 h-[200%] pointer-events-none select-none opacity-[0.06]">
@@ -329,27 +347,46 @@ export function WhoWeServe() {
         </div>
 
         <div className="container mx-auto px-6 md:px-12 relative z-10">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            variants={stagger}
-            viewport={{ once: true }}
-            className="max-w-xl"
-          >
-            <motion.p variants={fadeUp} className="text-xs font-bold uppercase tracking-widest text-primary mb-6 flex items-center gap-3">
-              <span className="w-8 h-px bg-primary" />
-              Don't see your trade?
-            </motion.p>
-            <motion.h2 variants={fadeUp} className="font-heading text-4xl md:text-5xl uppercase text-background mb-6 leading-none">
-              Let's <AnimatedGradientText>Talk</AnimatedGradientText>
-            </motion.h2>
-            <motion.p variants={fadeUp} className="text-background/70 leading-relaxed text-lg mb-12">
-              If you're in the home service industry and serious about growth, we want to hear from you. Our coaching adapts to your trade.
-            </motion.p>
-            <motion.div variants={fadeUp}>
-              <CompassButton to="/connect">Book a Discovery Call</CompassButton>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              variants={stagger}
+              viewport={{ once: true }}
+            >
+              <motion.p variants={fadeUp} className="text-xs font-bold uppercase tracking-widest text-primary mb-6 flex items-center gap-3">
+                <span className="w-8 h-px bg-primary" />
+                Don't see your trade?
+              </motion.p>
+              <motion.h2 variants={fadeUp} className="font-heading text-4xl md:text-5xl uppercase text-background mb-6 leading-none">
+                Let's <AnimatedGradientText>Talk</AnimatedGradientText>
+              </motion.h2>
+              <motion.p variants={fadeUp} className="text-background/70 leading-relaxed text-lg mb-12">
+                If you're in the home service industry and serious about growth, we want to hear from you. Our coaching adapts to your trade.
+              </motion.p>
+              <motion.div variants={fadeUp}>
+                <CompassButton to="/connect">Book a Discovery Call</CompassButton>
+              </motion.div>
             </motion.div>
-          </motion.div>
+
+            {/* Video placeholder */}
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="relative aspect-video bg-card/10 border border-primary/30 flex items-center justify-center"
+            >
+              <div className="text-center">
+                <div className="w-16 h-16 rounded-full bg-primary/20 border-2 border-primary flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-6 h-6 text-primary ml-1" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+                <p className="text-background/40 text-sm uppercase tracking-widest font-bold">Video Coming Soon</p>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 

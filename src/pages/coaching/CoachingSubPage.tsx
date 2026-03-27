@@ -5,6 +5,7 @@ import { CompassButton } from '@/components/ui/compass-button';
 import { ArrowRight, LucideIcon } from 'lucide-react';
 import truenorthIcon from '/Images/True North_icon badge black.svg';
 import { GlowingShadow } from '@/components/ui/glowing-shadow';
+import { FaqSection } from '@/components/FaqSection';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -286,36 +287,82 @@ export function CoachingSubPage({ data }: { data: CoachingSubPageData }) {
         </div>
       </section>
 
+      <FaqSection
+        heading="Common"
+        headingHighlight="Questions"
+        subheading="Everything you want to know before getting started."
+        items={[
+          {
+            question: 'What does a typical coaching session look like?',
+            answer: 'Sessions are structured around your current priorities — we review metrics, work through challenges, and set clear action items. Most clients meet weekly or bi-weekly depending on their engagement level.',
+          },
+          {
+            question: 'Can I sign up for multiple coaching departments?',
+            answer: 'Yes. Many clients start with one department and expand as they see results. We\'ll recommend the right starting point based on where your biggest gaps are.',
+          },
+          {
+            question: 'Do you coach remotely or in person?',
+            answer: 'Both. Most coaching is done remotely via video call, but we do offer on-site visits for team training sessions and deep-dive engagements. Ask about this on your discovery call.',
+          },
+          {
+            question: 'How do you measure success?',
+            answer: 'We define measurable outcomes at the start of every engagement — booking rate, average ticket, close rate, or whatever metrics matter most to your business. Your results are our report card.',
+          },
+          {
+            question: 'Is there a minimum commitment?',
+            answer: 'We don\'t lock you into long contracts, but most meaningful results come from a sustained engagement. We\'ll discuss realistic timelines on the discovery call based on your goals.',
+          },
+        ]}
+      />
+
       {/* ── CTA BANNER ────────────────────────────────────────────── */}
       <section className="py-20 bg-foreground relative overflow-hidden">
-        <div className="absolute inset-0 bg-topography opacity-10 pointer-events-none" />
-
         {/* Icon watermark — left */}
         <div className="absolute left-[-4%] top-1/2 -translate-y-1/2 h-[200%] pointer-events-none select-none opacity-[0.06]">
           <img src={truenorthIcon} alt="" className="h-full w-auto" />
         </div>
 
-        <div className="container mx-auto px-6 md:px-12 relative z-10 flex justify-end">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            variants={stagger}
-            viewport={{ once: true }}
-            className="max-w-xl"
-          >
-            <motion.h2 variants={fadeUp} className="font-heading text-4xl md:text-5xl uppercase text-background mb-6 leading-none">
-              {data.ctaHeadline.split(' ').slice(0, -1).join(' ')}{' '}
-              <AnimatedGradientText>{data.ctaHeadline.split(' ').slice(-1)}</AnimatedGradientText>
-            </motion.h2>
-            <motion.p variants={fadeUp} className="text-background/70 leading-relaxed mb-10">
-              {data.ctaBody}
-            </motion.p>
-            <motion.div variants={fadeUp}>
-              <CompassButton to="/connect">Book a Discovery Call</CompassButton>
+        <div className="container mx-auto px-6 md:px-12 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              variants={stagger}
+              viewport={{ once: true }}
+            >
+              <motion.h2 variants={fadeUp} className="font-heading text-4xl md:text-5xl uppercase text-background mb-6 leading-none">
+                {data.ctaHeadline.split(' ').slice(0, -1).join(' ')}{' '}
+                <AnimatedGradientText>{data.ctaHeadline.split(' ').slice(-1)}</AnimatedGradientText>
+              </motion.h2>
+              <motion.p variants={fadeUp} className="text-background/70 leading-relaxed mb-10">
+                {data.ctaBody}
+              </motion.p>
+              <motion.div variants={fadeUp}>
+                <CompassButton to="/connect">Book a Discovery Call</CompassButton>
+              </motion.div>
             </motion.div>
-          </motion.div>
+
+            {/* Video placeholder */}
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="relative aspect-video bg-card/10 border border-primary/30 flex items-center justify-center"
+            >
+              <div className="text-center">
+                <div className="w-16 h-16 rounded-full bg-primary/20 border-2 border-primary flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-6 h-6 text-primary ml-1" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+                <p className="text-background/40 text-sm uppercase tracking-widest font-bold">Video Coming Soon</p>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
+
 
     </main>
   );

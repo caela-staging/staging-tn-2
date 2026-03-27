@@ -90,6 +90,101 @@ function CoachVideo({ src, className }: { src: string; className: string }) {
   );
 }
 
+const videoSlides = [
+  { name: 'James R.', company: 'Precision Air & Heat', trade: 'HVAC', quote: '"Revenue up 40% in our first year. The systems they built changed everything."' },
+  { name: 'Maria T.', company: 'AllFlow Plumbing', trade: 'Plumbing', quote: '"Our CSR team went from booking 50% of calls to over 80%. Night and day."' },
+  { name: 'Derek S.', company: 'Voltline Electric', trade: 'Electrical', quote: '"I finally feel like a business owner instead of just the best tech on the truck."' },
+  { name: 'Amanda C.', company: 'LiftRight Garage Doors', trade: 'Garage Doors', quote: '"True North gave us a real roadmap. We hit $2M for the first time last year."' },
+];
+
+function VideoCarousel() {
+  const [active, setActive] = useState(0);
+  const count = videoSlides.length;
+
+  return (
+    <section className="py-24 bg-foreground relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+      {/* Gradient spotlight behind video cards */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70rem] h-[30rem] bg-gradient-to-r from-primary/30 via-amber-400/20 to-primary/30 rounded-full filter blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[50rem] h-[20rem] bg-primary/10 rounded-full filter blur-[120px] pointer-events-none" />
+
+      <div className="container mx-auto px-6 md:px-12 relative z-10">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mb-14"
+        >
+          <p className="text-xs font-bold uppercase tracking-widest text-primary mb-4 flex items-center justify-center gap-3">
+            <span className="w-8 h-px bg-primary" />
+            Client Stories
+            <span className="w-8 h-px bg-primary" />
+          </p>
+          <h2 className="font-heading text-4xl md:text-5xl uppercase text-background leading-none">
+            Real Results. <AnimatedGradientText>Real Contractors.</AnimatedGradientText>
+          </h2>
+        </motion.div>
+
+        {/* Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+          {videoSlides.map((slide, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: i * 0.1 }}
+              viewport={{ once: true }}
+              onClick={() => setActive(i)}
+              className={`cursor-pointer group relative flex flex-col border transition-all duration-300 ${
+                active === i ? 'border-primary shadow-[0_0_24px_rgba(254,101,42,0.25)]' : 'border-background/10 hover:border-primary/40'
+              }`}
+            >
+              {/* YouTube-style placeholder */}
+              <div className="relative aspect-video bg-[#0f0f0f] flex items-center justify-center overflow-hidden">
+                {/* Fake thumbnail bars */}
+                <div className="absolute inset-0 flex flex-col justify-end p-3 gap-1.5">
+                  <div className="h-2 w-3/4 bg-white/10 rounded-sm" />
+                  <div className="h-2 w-1/2 bg-white/6 rounded-sm" />
+                </div>
+                {/* YouTube play button */}
+                <div className={`relative z-10 flex items-center justify-center transition-all duration-300 group-hover:scale-110 ${active === i ? 'scale-110' : ''}`}>
+                  <svg viewBox="0 0 68 48" className="w-14 h-10">
+                    <path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#FF0000" fillOpacity={active === i ? '1' : '0.85'} />
+                    <path d="M45 24 27 14v20" fill="white" />
+                  </svg>
+                </div>
+              </div>
+
+              {/* Info */}
+              <div className="p-5 flex flex-col gap-2 bg-background/5">
+                <span className="text-xs font-bold uppercase tracking-widest text-primary">{slide.trade}</span>
+                <p className="text-background font-heading text-lg uppercase leading-none">{slide.name}</p>
+                <p className="text-background/50 text-xs uppercase tracking-wide">{slide.company}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Featured quote for active slide */}
+        <motion.div
+          key={active}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="text-center max-w-2xl mx-auto"
+        >
+          <p className="text-background/80 text-xl font-script leading-relaxed">{videoSlides[active].quote}</p>
+          <p className="text-primary text-xs uppercase tracking-widest font-bold mt-4">
+            — {videoSlides[active].name}, {videoSlides[active].company}
+          </p>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 export function Home() {
   const fadeUpVariant = {
     hidden: { opacity: 0, y: 30 },
@@ -118,7 +213,7 @@ export function Home() {
             <AnimatedGradientText>The Authentic Way</AnimatedGradientText>
           </>
         }
-        description={<span className="font-script text-primary text-2xl">Business coaching built for home service contractors who refuse to settle.</span>}
+        description={<span className="font-script text-primary text-2xl">Business coaching built for <span className="text-foreground">home service</span> contractors who refuse to settle.</span>}
       >
         {/* Buttons + Stats locked to same width */}
         <div className="flex flex-col gap-16 w-fit">
@@ -140,7 +235,7 @@ export function Home() {
       </AnimatedHeroSection>
 
       {/* Connect With Your Coach Section */}
-      <section className="py-24 md:py-32 bg-card relative overflow-hidden">
+      <section className="py-24 md:py-32 bg-card bg-topography relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
 
         <div className="container mx-auto px-6 md:px-12 relative z-10">
@@ -426,6 +521,9 @@ export function Home() {
           </motion.div>
         </div>
       </section>
+
+      {/* Video Testimonial Carousel */}
+      <VideoCarousel />
 
       {/* Testimonials */}
       <TestimonialsStack />

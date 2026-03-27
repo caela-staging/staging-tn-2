@@ -295,7 +295,7 @@ export function Events() {
       </section>
 
       {/* ── Why Attend ── */}
-      <section className="py-24 bg-background relative overflow-hidden">
+      <section className="py-24 bg-background bg-topography relative overflow-hidden">
         <div className="container mx-auto px-6 md:px-12 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

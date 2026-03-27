@@ -10,7 +10,9 @@ import { AnimatedGradientText } from '@/components/AnimatedGradientText';
 import { CompassButton } from '@/components/ui/compass-button';
 import { TestimonialsStack } from '@/components/TestimonialsStack';
 import mckenaPhoto from '/Images/IMG_7990.jpeg';
+import stackedLogo from '/Images/True North_stacked full logo grey.svg';
 import { ProcessTimeline } from '@/components/ui/process-timeline';
+import { FaqSection } from '@/components/FaqSection';
 import {
   Shield,
   Users,
@@ -200,7 +202,8 @@ export function Coaching() {
       {/* ── HOW IT WORKS ─────────────────────────────────────────── */}
       <section className="py-20 bg-foreground relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
-        <div className="container mx-auto px-6 md:px-12">
+        <div className="absolute inset-0 bg-topography opacity-10 pointer-events-none" />
+        <div className="container mx-auto px-6 md:px-12 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -350,7 +353,6 @@ export function Coaching() {
 
       {/* ── GET CONNECTED CTA BANNER ──────────────────────────────── */}
       <section className="py-24 bg-foreground relative overflow-hidden">
-        <div className="absolute inset-0 bg-topography opacity-10 pointer-events-none" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] bg-primary/10 rounded-full filter blur-[100px]" />
 
         <div className="container mx-auto px-6 md:px-12 relative z-10">
@@ -532,6 +534,39 @@ export function Coaching() {
         </div>
       </section>
 
+      {/* ── FAQ ──────────────────────────────────────────────────── */}
+      <FaqSection
+        heading="Frequently Asked"
+        headingHighlight="Questions"
+        subheading="Everything you want to know before taking the next step."
+        items={[
+          {
+            question: 'How long does a typical coaching engagement last?',
+            answer: 'Most clients engage for 6–12 months. Some ongoing relationships run longer. We don\'t lock you into long contracts — we earn your commitment through results.',
+          },
+          {
+            question: 'Do you only work with certain trades?',
+            answer: 'We specialize exclusively in HVAC, plumbing, electrical, and garage door companies. This focus means our frameworks are built for your business — not adapted from generic coaching material.',
+          },
+          {
+            question: 'What\'s the difference between your coaching departments?',
+            answer: 'Each department (CSR, Sales, Business, Training, Marketing) focuses on a specific team or function. Most clients start with one or two areas, then expand as they grow.',
+          },
+          {
+            question: 'How quickly will I see results?',
+            answer: 'Most clients notice measurable changes within 60–90 days. Significant revenue impact typically shows within 6 months — depending on where you\'re starting from and how consistently the team engages.',
+          },
+          {
+            question: 'Do you offer group coaching or only one-on-one?',
+            answer: 'Both. We offer 1-on-1 coaching for owners and managers, and group training sessions for front-line teams like CSRs and sales techs.',
+          },
+          {
+            question: 'What if I\'ve tried coaching before and it didn\'t work?',
+            answer: 'We hear this often. Most generic coaching fails because it\'s not built for the trades. Our frameworks are designed specifically for home service businesses — we know the metrics, the seasonality, and the operational challenges you face.',
+          },
+        ]}
+      />
+
       {/* ── CTA FORM ─────────────────────────────────────────────── */}
       <section className="py-32 bg-background relative overflow-hidden">
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[40rem] h-[20rem] bg-primary/10 rounded-full filter blur-[100px] z-0" />
@@ -560,6 +595,7 @@ export function Coaching() {
             className="glass-card p-8 md:p-12 relative overflow-hidden"
           >
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50" />
+            <img src={stackedLogo} alt="" className="absolute right-0 top-1/2 -translate-y-1/2 h-[85%] w-auto opacity-[0.12] pointer-events-none select-none" />
             <form className="space-y-8 relative z-10">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-3">
