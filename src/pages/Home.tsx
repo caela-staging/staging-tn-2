@@ -265,7 +265,7 @@ export function Home() {
                 <h2 className="font-heading text-4xl md:text-5xl uppercase text-foreground mb-6 leading-none tracking-normal">
                   Connect With <br/>Your Coach
                 </h2>
-                <p className="text-2xl font-script text-primary mb-6">
+                <p className="text-lg font-sans text-primary mb-6">
                   We don't just give advice; we partner with you to build a resilient, profitable home service business.
                 </p>
               </motion.div>
