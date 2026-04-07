@@ -1,14 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Satisfy&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+@font-face {
+    font-family: 'Wilden';
+    src: url('/fonts/Wilden.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Thistails';
+    src: url('/fonts/ThistailsSans-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-    --font-heading: 'Barlow Condensed', sans-serif;
+    --font-heading: 'Wilden', sans-serif;
     --font-sans: 'Inter', sans-serif;
-    --font-script: 'Satisfy', cursive;
+    --font-script: 'Thistails', sans-serif;
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
