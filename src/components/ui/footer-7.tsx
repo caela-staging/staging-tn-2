@@ -87,6 +87,7 @@ export const Footer7 = ({
 
         {/* Bottom bar */}
         <div className="mt-12 flex flex-col justify-between gap-4 border-t border-border/50 pt-8 text-xs text-muted-foreground md:flex-row md:items-center">
+          <p hidden><a href="http://www.freepik.com">Designed by kjpargeter / Freepik</a></p>
           <p>{copyright}</p>
           {legalLinks && (
             <ul className="flex gap-6">

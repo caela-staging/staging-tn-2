@@ -9,11 +9,9 @@ import { PlumbingPage } from './pages/trades/PlumbingPage';
 import { ElectricalPage } from './pages/trades/ElectricalPage';
 import { GarageDoorsPage } from './pages/trades/GarageDoorsPage';
 import { OtherTradesPage } from './pages/trades/OtherTradesPage';
-import { CsrCoachingPage } from './pages/coaching/CsrCoachingPage';
-import { BusinessCoachingPage } from './pages/coaching/BusinessCoachingPage';
 import { SalesCoachingPage } from './pages/coaching/SalesCoachingPage';
-import { TrainingCoachingPage } from './pages/coaching/TrainingCoachingPage';
 import { MarketingCoachingPage } from './pages/coaching/MarketingCoachingPage';
+import { OperationsCoachingPage } from './pages/coaching/OperationsCoachingPage';
 import { Connect } from './pages/Connect';
 import { About } from './pages/About';
 import { Events } from './pages/Events';
@@ -33,11 +31,9 @@ export default function App() {
             {/* Placeholder routes for other pages */}
             <Route path="/about" element={<About />} />
             <Route path="/coaching" element={<Coaching />} />
-            <Route path="/coaching/csr" element={<CsrCoachingPage />} />
-            <Route path="/coaching/business" element={<BusinessCoachingPage />} />
             <Route path="/coaching/sales" element={<SalesCoachingPage />} />
-            <Route path="/coaching/training" element={<TrainingCoachingPage />} />
             <Route path="/coaching/marketing" element={<MarketingCoachingPage />} />
+            <Route path="/coaching/operations" element={<OperationsCoachingPage />} />
             <Route path="/who-we-serve" element={<WhoWeServe />} />
             <Route path="/who-we-serve/hvac" element={<HvacPage />} />
             <Route path="/who-we-serve/plumbing" element={<PlumbingPage />} />

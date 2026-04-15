@@ -10,6 +10,7 @@ import { motion } from 'motion/react';
 import { SpotlightCard } from '@/components/SpotlightCard';
 import { AnimatedGradientText } from '@/components/AnimatedGradientText';
 import { CompassButton } from '@/components/ui/compass-button';
+import { StepContactForm } from '@/components/StepContactForm';
 import {
   CheckCircle2,
   ArrowRight,
@@ -212,7 +213,10 @@ export function About() {
               viewport={{ once: true }}
               className="relative"
             >
-              <div className="absolute inset-0 bg-primary/20 translate-x-4 translate-y-4" />
+              <span className="absolute -top-1 -left-1 w-6 h-6 border-t-[3px] border-l-[3px] border-primary z-20 pointer-events-none" />
+              <span className="absolute -top-1 -right-1 w-6 h-6 border-t-[3px] border-r-[3px] border-primary z-20 pointer-events-none" />
+              <span className="absolute -bottom-1 -left-1 w-6 h-6 border-b-[3px] border-l-[3px] border-primary z-20 pointer-events-none" />
+              <span className="absolute -bottom-1 -right-1 w-6 h-6 border-b-[3px] border-r-[3px] border-primary z-20 pointer-events-none" />
               <img
                 src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2232&auto=format&fit=crop"
                 alt="True North coaching session"
@@ -492,70 +496,51 @@ export function About() {
       <section className="py-32 bg-background relative overflow-hidden">
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[40rem] h-[20rem] bg-primary/10 rounded-full filter blur-[100px] z-0" />
 
-        <div className="container relative z-10 mx-auto px-6 md:px-12 max-w-4xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="font-heading text-4xl md:text-5xl uppercase text-foreground mb-6 leading-none">
-              Find Your <AnimatedGradientText>True North</AnimatedGradientText>
-            </h2>
-            <p className="text-2xl font-script text-primary">
-              Ready to stop guessing? Let's have an honest conversation about where your business is headed.
-            </p>
-          </motion.div>
+        <div className="container relative z-10 mx-auto px-6 md:px-12 max-w-6xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-20 items-center">
 
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="glass-card p-8 md:p-12 relative overflow-hidden"
-          >
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50" />
-            <img src={stackedLogo} alt="" className="absolute right-0 top-1/2 -translate-y-1/2 h-[85%] w-auto opacity-[0.12] pointer-events-none select-none" />
-            <form className="space-y-8 relative z-10">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-3">
-                  <Label htmlFor="firstName" className="text-foreground uppercase tracking-wider text-xs font-bold">First Name</Label>
-                  <Input id="firstName" placeholder="John" className="bg-background/50 border-border/50 text-foreground rounded-none focus-visible:ring-primary focus-visible:border-primary h-12 transition-colors" />
-                </div>
-                <div className="space-y-3">
-                  <Label htmlFor="lastName" className="text-foreground uppercase tracking-wider text-xs font-bold">Last Name</Label>
-                  <Input id="lastName" placeholder="Doe" className="bg-background/50 border-border/50 text-foreground rounded-none focus-visible:ring-primary focus-visible:border-primary h-12 transition-colors" />
-                </div>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-3">
-                  <Label htmlFor="email" className="text-foreground uppercase tracking-wider text-xs font-bold">Email Address</Label>
-                  <Input id="email" type="email" placeholder="john@example.com" className="bg-background/50 border-border/50 text-foreground rounded-none focus-visible:ring-primary focus-visible:border-primary h-12 transition-colors" />
-                </div>
-                <div className="space-y-3">
-                  <Label htmlFor="phone" className="text-foreground uppercase tracking-wider text-xs font-bold">Phone Number</Label>
-                  <Input id="phone" type="tel" placeholder="(555) 123-4567" className="bg-background/50 border-border/50 text-foreground rounded-none focus-visible:ring-primary focus-visible:border-primary h-12 transition-colors" />
-                </div>
-              </div>
-              <div className="space-y-3">
-                <Label htmlFor="trade" className="text-foreground uppercase tracking-wider text-xs font-bold">Primary Trade</Label>
-                <select id="trade" className="flex h-12 w-full bg-background/50 border border-border/50 px-3 py-2 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary rounded-none transition-colors">
-                  <option value="">Select your trade...</option>
-                  <option value="hvac">HVAC</option>
-                  <option value="plumbing">Plumbing</option>
-                  <option value="electrical">Electrical</option>
-                  <option value="garage">Garage Doors</option>
-                  <option value="other">Other Home Service</option>
-                </select>
-              </div>
-              <div className="space-y-3">
-                <Label htmlFor="goals" className="text-foreground uppercase tracking-wider text-xs font-bold">What are your biggest challenges?</Label>
-                <Textarea id="goals" placeholder="Tell us about your current roadblocks..." className="bg-background/50 border-border/50 text-foreground rounded-none focus-visible:ring-primary focus-visible:border-primary min-h-[140px] resize-none transition-colors" />
-              </div>
-              <CompassButton type="submit" className="w-full">Book a Discovery Call</CompassButton>
-            </form>
-          </motion.div>
+            {/* Left: pitch text */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="font-heading text-4xl md:text-5xl uppercase text-foreground mb-6 leading-none">
+                Ready to Find Your <AnimatedGradientText>True North?</AnimatedGradientText>
+              </h2>
+              <p className="text-muted-foreground mb-8 leading-relaxed">
+                Stop guessing and start scaling. Our discovery call is 30 minutes of honest conversation about where your business is and where it needs to go.
+              </p>
+              <ul className="space-y-4">
+                {[
+                  'No sales pitch — just real strategy',
+                  'Built for trades businesses doing $1M+',
+                  'Limited spots available each quarter',
+                  '100% free discovery call',
+                ].map((item) => (
+                  <li key={item} className="flex items-center gap-3 text-sm text-muted-foreground">
+                    <span className="text-primary font-bold flex-shrink-0">✓</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* Right: form card */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              viewport={{ once: true }}
+              className="glass-card p-8 md:p-10 relative overflow-hidden"
+            >
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50" />
+              <img src={stackedLogo} alt="" className="absolute right-0 top-1/2 -translate-y-1/2 h-[85%] w-auto opacity-[0.12] pointer-events-none select-none" />
+              <StepContactForm buttonLabel="Book a Discovery Call" />
+            </motion.div>
+
+          </div>
         </div>
       </section>
 

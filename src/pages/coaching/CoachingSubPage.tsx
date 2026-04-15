@@ -140,7 +140,10 @@ export function CoachingSubPage({ data }: { data: CoachingSubPageData }) {
               viewport={{ once: true }}
               className="relative"
             >
-              <div className="absolute inset-0 bg-primary/20 translate-x-4 translate-y-4" />
+              <span className="absolute -top-1 -left-1 w-6 h-6 border-t-[3px] border-l-[3px] border-primary z-20 pointer-events-none" />
+              <span className="absolute -top-1 -right-1 w-6 h-6 border-t-[3px] border-r-[3px] border-primary z-20 pointer-events-none" />
+              <span className="absolute -bottom-1 -left-1 w-6 h-6 border-b-[3px] border-l-[3px] border-primary z-20 pointer-events-none" />
+              <span className="absolute -bottom-1 -right-1 w-6 h-6 border-b-[3px] border-r-[3px] border-primary z-20 pointer-events-none" />
               <img
                 src={data.introImg}
                 alt={data.introImgAlt}

@@ -6,11 +6,9 @@ import { motion, AnimatePresence } from 'motion/react';
 import { CompassButton } from '@/components/ui/compass-button';
 
 const coachingLinks = [
-  { label: 'CSR Coaching', to: '/coaching/csr' },
-  { label: 'Business Coaching', to: '/coaching/business' },
-  { label: 'Sales Coaching', to: '/coaching/sales' },
-  { label: 'Training Coaching', to: '/coaching/training' },
   { label: 'Marketing Coaching', to: '/coaching/marketing' },
+  { label: 'Sales Coaching', to: '/coaching/sales' },
+  { label: 'Operations Coaching', to: '/coaching/operations' },
 ];
 
 const whoWeServeLinks = [

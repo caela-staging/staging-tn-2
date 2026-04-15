@@ -51,7 +51,7 @@ export function ProcessTimeline({ steps, columns }: { steps: ProcessStep[]; colu
             </motion.div>
 
             {/* Step label */}
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary mb-3">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-primary mb-3">
               Step {step.number}
             </span>
 

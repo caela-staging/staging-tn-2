@@ -11,6 +11,7 @@ import { Magnetic } from '@/components/Magnetic';
 import { AnimatedGradientText } from '@/components/AnimatedGradientText';
 import { AnimatedHeroSection } from '@/components/ui/animated-hero-section-1';
 import { CompassButton } from '@/components/ui/compass-button';
+import { StepContactForm } from '@/components/StepContactForm';
 import { EtheralShadow } from '@/components/ui/etheral-shadow';
 import truenorthBadge from '/Images/True North_text badge grey.svg';
 import mckenaPhoto from '/Images/IMG_7990.jpeg';
@@ -247,7 +248,11 @@ export function Home() {
               viewport={{ once: true }}
               className="relative max-w-[calc(100%-50px)]"
             >
-              <div className="absolute inset-0 bg-primary/20 translate-x-4 translate-y-4"></div>
+              {/* Corner bracket accents */}
+              <span className="absolute -top-1 -left-1 w-6 h-6 border-t-[3px] border-l-[3px] border-primary z-20 pointer-events-none" />
+              <span className="absolute -top-1 -right-1 w-6 h-6 border-t-[3px] border-r-[3px] border-primary z-20 pointer-events-none" />
+              <span className="absolute -bottom-1 -left-1 w-6 h-6 border-b-[3px] border-l-[3px] border-primary z-20 pointer-events-none" />
+              <span className="absolute -bottom-1 -right-1 w-6 h-6 border-b-[3px] border-r-[3px] border-primary z-20 pointer-events-none" />
               <CoachVideo
                 src={coachVideo}
                 className="relative z-10 w-full h-[488px] object-cover grayscale hover:grayscale-0 transition-all duration-700"
@@ -531,82 +536,52 @@ export function Home() {
       {/* CTA Form Section */}
       <section className="py-32 bg-background relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
-        {/* Angled divider top */}
-        <div className="absolute top-0 left-0 w-full h-24 bg-background -skew-y-2 origin-top-left z-0"></div>
-        
-        {/* Background Glow */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[40rem] h-[20rem] bg-primary/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[100px] z-0"></div>
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[40rem] h-[20rem] bg-primary/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[100px] z-0" />
 
-        <div className="container relative z-10 mx-auto px-6 md:px-12 max-w-4xl">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="font-heading text-4xl md:text-5xl uppercase text-foreground mb-6 tracking-normal">
-              Find Your <AnimatedGradientText>True North</AnimatedGradientText>
-            </h2>
-            <p className="text-2xl font-script text-primary mb-12">
-              Ready to stop settling? Fill out the form below and let's have an honest conversation about where your business is heading.
-            </p>
-          </motion.div>
+        <div className="container relative z-10 mx-auto px-6 md:px-12 max-w-6xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-20 items-center">
 
-          <motion.div 
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="glass-card p-8 md:p-12 relative overflow-hidden"
-          >
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50"></div>
-            <form className="space-y-8 relative z-10">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-3">
-                  <Label htmlFor="firstName" className="text-foreground uppercase tracking-wider text-xs font-bold">First Name</Label>
-                  <Input id="firstName" placeholder="John" className="bg-background/50 border-border/50 text-foreground rounded-none focus-visible:ring-primary focus-visible:border-primary h-12 transition-colors" />
-                </div>
-                <div className="space-y-3">
-                  <Label htmlFor="lastName" className="text-foreground uppercase tracking-wider text-xs font-bold">Last Name</Label>
-                  <Input id="lastName" placeholder="Doe" className="bg-background/50 border-border/50 text-foreground rounded-none focus-visible:ring-primary focus-visible:border-primary h-12 transition-colors" />
-                </div>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-3">
-                  <Label htmlFor="email" className="text-foreground uppercase tracking-wider text-xs font-bold">Email Address</Label>
-                  <Input id="email" type="email" placeholder="john@example.com" className="bg-background/50 border-border/50 text-foreground rounded-none focus-visible:ring-primary focus-visible:border-primary h-12 transition-colors" />
-                </div>
-                <div className="space-y-3">
-                  <Label htmlFor="phone" className="text-foreground uppercase tracking-wider text-xs font-bold">Phone Number</Label>
-                  <Input id="phone" type="tel" placeholder="(555) 123-4567" className="bg-background/50 border-border/50 text-foreground rounded-none focus-visible:ring-primary focus-visible:border-primary h-12 transition-colors" />
-                </div>
-              </div>
+            {/* Left: pitch text */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="font-heading text-4xl md:text-5xl uppercase text-foreground mb-6 leading-none">
+                Ready to Find Your <AnimatedGradientText>True North?</AnimatedGradientText>
+              </h2>
+              <p className="text-muted-foreground mb-8 leading-relaxed">
+                Stop guessing and start scaling. Our discovery call is 30 minutes of honest conversation about where your business is and where it needs to go.
+              </p>
+              <ul className="space-y-4">
+                {[
+                  'No sales pitch — just real strategy',
+                  'Built for trades businesses doing $1M+',
+                  'Limited spots available each quarter',
+                  '100% free discovery call',
+                ].map((item) => (
+                  <li key={item} className="flex items-center gap-3 text-sm text-muted-foreground">
+                    <span className="text-primary font-bold flex-shrink-0">✓</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
 
-              <div className="space-y-3">
-                <Label htmlFor="businessType" className="text-foreground uppercase tracking-wider text-xs font-bold">Primary Trade</Label>
-                <select 
-                  id="businessType" 
-                  className="flex h-12 w-full bg-background/50 border border-border/50 px-3 py-2 text-sm text-foreground ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary disabled:cursor-not-allowed disabled:opacity-50 rounded-none transition-colors"
-                >
-                  <option value="" disabled selected>Select your trade...</option>
-                  <option value="hvac">HVAC</option>
-                  <option value="plumbing">Plumbing</option>
-                  <option value="electrical">Electrical</option>
-                  <option value="garage">Garage Doors</option>
-                  <option value="other">Other Home Service</option>
-                </select>
-              </div>
+            {/* Right: form card */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              viewport={{ once: true }}
+              className="glass-card p-8 md:p-10 relative overflow-hidden"
+            >
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50" />
+              <StepContactForm buttonLabel="Book a Discovery Call" />
+            </motion.div>
 
-              <div className="space-y-3">
-                <Label htmlFor="goals" className="text-foreground uppercase tracking-wider text-xs font-bold">What are your biggest challenges?</Label>
-                <Textarea id="goals" placeholder="Tell us about your current roadblocks..." className="bg-background/50 border-border/50 text-foreground rounded-none focus-visible:ring-primary focus-visible:border-primary min-h-[150px] resize-none transition-colors" />
-              </div>
-
-              <CompassButton type="submit" className="w-full">Book a Discovery Call</CompassButton>
-            </form>
-          </motion.div>
+          </div>
         </div>
       </section>
     </main>

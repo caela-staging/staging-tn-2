@@ -8,14 +8,14 @@ import { motion } from 'motion/react';
 import { SpotlightCard } from '@/components/SpotlightCard';
 import { AnimatedGradientText } from '@/components/AnimatedGradientText';
 import { CompassButton } from '@/components/ui/compass-button';
+import { StepContactForm } from '@/components/StepContactForm';
 import { TestimonialsStack } from '@/components/TestimonialsStack';
 import mckenaPhoto from '/Images/IMG_7990.jpeg';
 import stackedLogo from '/Images/True North_stacked full logo grey.svg';
 import { ProcessTimeline } from '@/components/ui/process-timeline';
 import { FaqSection } from '@/components/FaqSection';
 import {
-  Shield,
-  Users,
+  Settings,
   TrendingUp,
   Target,
   Megaphone,
@@ -35,33 +35,21 @@ const stagger = {
 };
 
 const departments = [
-  { label: 'CSR', icon: Users, id: 'csr' },
-  { label: 'Business', icon: TrendingUp, id: 'business' },
-  { label: 'Sales', icon: Target, id: 'sales' },
-  { label: 'Training', icon: Shield, id: 'training' },
   { label: 'Marketing', icon: Megaphone, id: 'marketing' },
+  { label: 'Sales', icon: Target, id: 'sales' },
+  { label: 'Operations', icon: Settings, id: 'operations' },
 ];
 
 const coachSections = [
   {
-    id: 'csr',
-    label: 'CSR',
-    title: 'CSR Coaches',
-    body: 'Our Customer Service Representatives coaching program transforms how your front-line team handles every call. From booking rates to customer satisfaction scores, we build the habits and scripts that turn prospects into loyal customers. Our CSR coaches bring real-world trades experience — they\'ve sat in the seat your team sits in every day.',
-    bullets: ['Proven call scripts for higher booking rates', 'Live call reviews and real-time feedback', 'KPI dashboards built for CSR performance'],
-    img: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=2070&auto=format&fit=crop',
-    imgAlt: 'CSR coaching session',
+    id: 'marketing',
+    label: 'Marketing',
+    title: 'Marketing Coaches',
+    body: 'Your brand is your reputation at scale. Our marketing coaches help home service companies build a local presence that drives inbound calls, earns trust before the first contact, and keeps your pipeline full year-round — without wasting budget on tactics that don\'t work for the trades.',
+    bullets: ['Local SEO and Google Business Profile strategy', 'Brand messaging that resonates with homeowners', 'Seasonal campaign planning tied to your trade'],
+    img: 'https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=2070&auto=format&fit=crop',
+    imgAlt: 'Marketing coaching session',
     flip: false,
-  },
-  {
-    id: 'business',
-    label: 'Business',
-    title: 'Business Coaches',
-    body: 'Running a home service company requires a different playbook than most industries. Our business coaches specialize exclusively in the trades — helping owners build scalable operations, improve margins, and create the systems that support long-term growth without burning out.',
-    bullets: ['P&L analysis tailored to home service benchmarks', 'Operational systems and SOPs that actually stick', 'Leadership development for owner and management'],
-    img: 'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop',
-    imgAlt: 'Business coaching session',
-    flip: true,
   },
   {
     id: 'sales',
@@ -71,26 +59,16 @@ const coachSections = [
     bullets: ['In-home presentation frameworks that convert', 'Objection handling rooted in honesty', 'Average ticket growth without upsell gimmicks'],
     img: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?q=80&w=2026&auto=format&fit=crop',
     imgAlt: 'Sales training session',
-    flip: false,
-  },
-  {
-    id: 'training',
-    label: 'Training',
-    title: 'Training Coaches',
-    body: 'Great teams are built, not hired. Our training coaches help you design onboarding programs, ongoing education, and performance standards that elevate every role in your company. Whether you\'re scaling fast or stabilizing a rocky team, we build the infrastructure for consistent excellence.',
-    bullets: ['Custom onboarding programs for technicians and CSRs', 'Role-specific scorecards and accountability systems', 'Ongoing training calendars that keep teams sharp'],
-    img: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop',
-    imgAlt: 'Training coaching session',
     flip: true,
   },
   {
-    id: 'marketing',
-    label: 'Marketing',
-    title: 'Marketing Coaches',
-    body: 'Your brand is your reputation at scale. Our marketing coaches help home service companies build a local presence that drives inbound calls, earns trust before the first contact, and keeps your pipeline full year-round — without wasting budget on tactics that don\'t work for the trades.',
-    bullets: ['Local SEO and Google Business Profile strategy', 'Brand messaging that resonates with homeowners', 'Seasonal campaign planning tied to your trade'],
-    img: 'https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=2070&auto=format&fit=crop',
-    imgAlt: 'Marketing coaching session',
+    id: 'operations',
+    label: 'Operations',
+    title: 'Operations Coaches',
+    body: 'A business that runs on you isn\'t a business — it\'s a job. Our operations coaches help home service companies build the SOPs, dispatch systems, and management structures that create consistent performance and give owners their time back.',
+    bullets: ['SOPs and workflows for every key role and process', 'Dispatch efficiency and capacity planning', 'Management accountability systems and KPI dashboards'],
+    img: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop',
+    imgAlt: 'Operations coaching session',
     flip: false,
   },
 ];
@@ -199,6 +177,72 @@ export function Coaching() {
         </div>
       </section>
 
+      {/* ── COACHING INTRO ───────────────────────────────────────── */}
+      <section className="relative pt-28 pb-16 bg-topography overflow-hidden">
+        <div className="container mx-auto px-6 md:px-12 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+            {/* Photo — left */}
+            <motion.div
+              initial={{ opacity: 0, x: -40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="relative"
+            >
+              <span className="absolute -top-1 -left-1 w-6 h-6 border-t-[3px] border-l-[3px] border-primary z-20 pointer-events-none" />
+              <span className="absolute -top-1 -right-1 w-6 h-6 border-t-[3px] border-r-[3px] border-primary z-20 pointer-events-none" />
+              <span className="absolute -bottom-1 -left-1 w-6 h-6 border-b-[3px] border-l-[3px] border-primary z-20 pointer-events-none" />
+              <span className="absolute -bottom-1 -right-1 w-6 h-6 border-b-[3px] border-r-[3px] border-primary z-20 pointer-events-none" />
+              <img
+                src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2232&auto=format&fit=crop"
+                alt="Coaching hero"
+                className="relative z-10 w-full aspect-[4/3] object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                referrerPolicy="no-referrer"
+              />
+            </motion.div>
+
+            {/* Text — right */}
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={stagger}
+            >
+              <motion.p variants={fadeUp} className="text-sm font-semibold uppercase tracking-widest text-primary mb-6">
+                True North Strategies
+              </motion.p>
+
+              <motion.h1 variants={fadeUp} className="font-heading text-4xl md:text-5xl lg:text-6xl uppercase text-foreground mb-6 leading-none">
+                Coaching That <br />Moves You
+              </motion.h1>
+
+              <motion.p variants={fadeUp} className="text-xl font-script text-primary mb-8">
+                Real coaching for real trades businesses — built on honesty, accountability, and results.
+              </motion.p>
+
+              <motion.ul variants={fadeUp} className="space-y-3 mb-10">
+                {[
+                  'Tailored strategies for HVAC, Plumbing, and Electrical',
+                  'Proven frameworks to increase revenue and margin',
+                  'Leadership development for you and your management team',
+                  'No-nonsense accountability to keep you on track',
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-foreground/80">
+                    <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </motion.ul>
+
+              <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4">
+                <CompassButton to="/connect">Book a Discovery Call</CompassButton>
+                <CompassButton href="#departments" className="bg-transparent text-primary hover:bg-primary hover:text-[#FCECBB]" arrowsClassName="opacity-0 group-hover:opacity-100 transition-opacity duration-300">Explore Coaching</CompassButton>
+              </motion.div>
+            </motion.div>
+
+          </div>
+        </div>
+      </section>
+
       {/* ── HOW IT WORKS ─────────────────────────────────────────── */}
       <section className="py-20 bg-foreground relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
@@ -255,7 +299,7 @@ export function Coaching() {
               Department <AnimatedGradientText>Coaching</AnimatedGradientText>
             </h2>
             <p className="text-lg font-script text-primary max-w-xl mx-auto">
-              Five disciplines. One integrated system. Built for home service companies.
+              Three disciplines. One integrated system. Built for home service companies.
             </p>
           </motion.div>
 
@@ -303,7 +347,10 @@ export function Coaching() {
                 viewport={{ once: true }}
                 className="relative"
               >
-                <div className={`absolute inset-0 bg-primary/15 ${flip ? '-translate-x-4' : 'translate-x-4'} translate-y-4`} />
+                <span className="absolute -top-1 -left-1 w-6 h-6 border-t-[3px] border-l-[3px] border-primary z-20 pointer-events-none" />
+                <span className="absolute -top-1 -right-1 w-6 h-6 border-t-[3px] border-r-[3px] border-primary z-20 pointer-events-none" />
+                <span className="absolute -bottom-1 -left-1 w-6 h-6 border-b-[3px] border-l-[3px] border-primary z-20 pointer-events-none" />
+                <span className="absolute -bottom-1 -right-1 w-6 h-6 border-b-[3px] border-r-[3px] border-primary z-20 pointer-events-none" />
                 <img
                   src={img}
                   alt={imgAlt}
@@ -514,7 +561,7 @@ export function Coaching() {
                 <div className="w-12 h-12 bg-primary/10 flex items-center justify-center mb-6 border border-primary/20 group-hover:border-primary/50 transition-colors group-hover:shadow-[0_0_15px_rgba(232,96,10,0.3)]">
                   <Icon className="w-6 h-6 text-primary group-hover:scale-110 transition-transform duration-300" />
                 </div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary mb-3">{stat}</p>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-primary mb-3">{stat}</p>
                 <h3 className="font-heading text-2xl uppercase text-foreground mb-4 leading-tight">{title}</h3>
                 <p className="text-muted-foreground leading-relaxed text-sm">{body}</p>
                 <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-primary group-hover:w-full transition-all duration-500" />
@@ -550,7 +597,7 @@ export function Coaching() {
           },
           {
             question: 'What\'s the difference between your coaching departments?',
-            answer: 'Each department (CSR, Sales, Business, Training, Marketing) focuses on a specific team or function. Most clients start with one or two areas, then expand as they grow.',
+            answer: 'Each department (Marketing, Sales, Operations) focuses on a specific team or function. Most clients start with one or two areas, then expand as they grow.',
           },
           {
             question: 'How quickly will I see results?',
@@ -571,97 +618,60 @@ export function Coaching() {
       <section className="py-32 bg-background relative overflow-hidden">
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[40rem] h-[20rem] bg-primary/10 rounded-full filter blur-[100px] z-0" />
 
-        <div className="container relative z-10 mx-auto px-6 md:px-12 max-w-4xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="font-heading text-4xl md:text-5xl uppercase text-foreground mb-6 tracking-normal">
-              Find Your <AnimatedGradientText>True North</AnimatedGradientText>
-            </h2>
-            <p className="text-2xl font-script text-primary">
-              Ready to stop guessing? Let's talk about where your business is headed.
-            </p>
-          </motion.div>
+        <div className="container relative z-10 mx-auto px-6 md:px-12 max-w-6xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-20 items-center">
 
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="glass-card p-8 md:p-12 relative overflow-hidden"
-          >
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50" />
-            <img src={stackedLogo} alt="" className="absolute right-0 top-1/2 -translate-y-1/2 h-[85%] w-auto opacity-[0.12] pointer-events-none select-none" />
-            <form className="space-y-8 relative z-10">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-3">
-                  <Label htmlFor="firstName" className="text-foreground uppercase tracking-wider text-xs font-bold">First Name</Label>
-                  <Input id="firstName" placeholder="John" className="bg-background/50 border-border/50 text-foreground rounded-none focus-visible:ring-primary focus-visible:border-primary h-12 transition-colors" />
-                </div>
-                <div className="space-y-3">
-                  <Label htmlFor="lastName" className="text-foreground uppercase tracking-wider text-xs font-bold">Last Name</Label>
-                  <Input id="lastName" placeholder="Doe" className="bg-background/50 border-border/50 text-foreground rounded-none focus-visible:ring-primary focus-visible:border-primary h-12 transition-colors" />
-                </div>
-              </div>
+            {/* Left: pitch text */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="font-heading text-4xl md:text-5xl uppercase text-foreground mb-6 leading-none">
+                Ready to Find Your <AnimatedGradientText>True North?</AnimatedGradientText>
+              </h2>
+              <p className="text-muted-foreground mb-8 leading-relaxed">
+                Stop guessing and start scaling. Our discovery call is 30 minutes of honest conversation about where your business is and where it needs to go.
+              </p>
+              <ul className="space-y-4">
+                {[
+                  'No sales pitch — just real strategy',
+                  'Built for trades businesses doing $1M+',
+                  'Limited spots available each quarter',
+                  '100% free discovery call',
+                ].map((item) => (
+                  <li key={item} className="flex items-center gap-3 text-sm text-muted-foreground">
+                    <span className="text-primary font-bold flex-shrink-0">✓</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-3">
-                  <Label htmlFor="email" className="text-foreground uppercase tracking-wider text-xs font-bold">Email Address</Label>
-                  <Input id="email" type="email" placeholder="john@example.com" className="bg-background/50 border-border/50 text-foreground rounded-none focus-visible:ring-primary focus-visible:border-primary h-12 transition-colors" />
-                </div>
-                <div className="space-y-3">
-                  <Label htmlFor="phone" className="text-foreground uppercase tracking-wider text-xs font-bold">Phone Number</Label>
-                  <Input id="phone" type="tel" placeholder="(555) 123-4567" className="bg-background/50 border-border/50 text-foreground rounded-none focus-visible:ring-primary focus-visible:border-primary h-12 transition-colors" />
-                </div>
-              </div>
+            {/* Right: form card */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              viewport={{ once: true }}
+              className="glass-card p-8 md:p-10 relative overflow-hidden"
+            >
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50" />
+              <img src={stackedLogo} alt="" className="absolute right-0 top-1/2 -translate-y-1/2 h-[85%] w-auto opacity-[0.12] pointer-events-none select-none" />
+              <StepContactForm
+                buttonLabel="Connect Today"
+                showCoachingArea
+                coachingOptions={[
+                  { value: 'marketing',  label: 'Marketing Coaching' },
+                  { value: 'sales',      label: 'Sales Coaching' },
+                  { value: 'operations', label: 'Operations Coaching' },
+                  { value: 'all',        label: 'All Departments' },
+                ]}
+              />
+            </motion.div>
 
-              <div className="space-y-3">
-                <Label htmlFor="trade" className="text-foreground uppercase tracking-wider text-xs font-bold">Primary Trade</Label>
-                <select
-                  id="trade"
-                  className="flex h-12 w-full bg-background/50 border border-border/50 px-3 py-2 text-sm text-foreground ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary disabled:cursor-not-allowed disabled:opacity-50 rounded-none transition-colors"
-                >
-                  <option value="" disabled>Select your trade...</option>
-                  <option value="hvac">HVAC</option>
-                  <option value="plumbing">Plumbing</option>
-                  <option value="electrical">Electrical</option>
-                  <option value="garage">Garage Doors</option>
-                  <option value="other">Other Home Service</option>
-                </select>
-              </div>
-
-              <div className="space-y-3">
-                <Label htmlFor="coaching" className="text-foreground uppercase tracking-wider text-xs font-bold">Coaching Area of Interest</Label>
-                <select
-                  id="coaching"
-                  className="flex h-12 w-full bg-background/50 border border-border/50 px-3 py-2 text-sm text-foreground ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary disabled:cursor-not-allowed disabled:opacity-50 rounded-none transition-colors"
-                >
-                  <option value="" disabled>Select a department...</option>
-                  <option value="csr">CSR Coaching</option>
-                  <option value="business">Business Coaching</option>
-                  <option value="sales">Sales Coaching</option>
-                  <option value="training">Training Coaching</option>
-                  <option value="marketing">Marketing Coaching</option>
-                  <option value="all">All Departments</option>
-                </select>
-              </div>
-
-              <div className="space-y-3">
-                <Label htmlFor="goals" className="text-foreground uppercase tracking-wider text-xs font-bold">What are your biggest challenges?</Label>
-                <Textarea
-                  id="goals"
-                  placeholder="Tell us about your current roadblocks..."
-                  className="bg-background/50 border-border/50 text-foreground rounded-none focus-visible:ring-primary focus-visible:border-primary min-h-[150px] resize-none transition-colors"
-                />
-              </div>
-
-              <CompassButton type="submit" className="w-full">Connect Today</CompassButton>
-            </form>
-          </motion.div>
+          </div>
         </div>
       </section>
     </main>

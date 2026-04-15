@@ -1,14 +1,39 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Satisfy&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+@font-face {
+  font-family: 'Wilden';
+  src: url('/fonts/Wilden.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Thistails Script';
+  src: url('/fonts/Thistails_Script_Demo-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Thistails Sans';
+  src: url('/fonts/ThistailsSans_Demo-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-    --font-heading: 'Barlow Condensed', sans-serif;
-    --font-sans: 'Inter', sans-serif;
-    --font-script: 'Satisfy', cursive;
+    --font-heading: 'Wilden', sans-serif;
+    --font-sans: 'Montserrat', sans-serif;
+    --font-script: 'Thistails Script', cursive;
+    --font-label: 'Thistails Sans', sans-serif;
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -144,7 +169,10 @@
 }
 
 .bg-topography {
-  background-image: url("data:image/svg+xml,%3Csvg width='400' height='400' viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='currentColor'%3E%3Cpath stroke-width='1.2' stroke-opacity='0.16' d='M200,55 C265,40 348,98 352,178 C356,258 300,318 222,322 C144,326 82,268 80,190 C78,112 135,70 200,55Z'/%3E%3Cpath stroke-width='1' stroke-opacity='0.14' d='M200,82 C257,69 326,120 329,190 C332,260 282,312 212,315 C142,318 88,265 86,195 C84,125 143,95 200,82Z'/%3E%3Cpath stroke-width='1.6' stroke-opacity='0.20' d='M200,110 C248,99 304,143 306,204 C308,265 264,308 202,310 C140,312 96,268 96,208 C96,148 152,121 200,110Z'/%3E%3Cpath stroke-width='1' stroke-opacity='0.14' d='M200,138 C238,129 280,163 281,216 C282,269 246,302 193,303 C140,304 104,266 105,213 C106,160 162,147 200,138Z'/%3E%3Cpath stroke-width='0.8' stroke-opacity='0.12' d='M200,164 C230,157 258,182 258,227 C258,272 230,298 186,298 C142,298 112,264 113,219 C114,174 170,171 200,164Z'/%3E%3Cpath stroke-width='0.8' stroke-opacity='0.12' d='M200,190 C222,185 242,205 241,242 C240,279 214,296 176,295 C138,294 116,264 118,227 C120,190 178,195 200,190Z'/%3E%3Cpath stroke-width='1.2' stroke-opacity='0.16' d='M378,0 C408,-8 426,38 414,90 C402,142 364,162 328,149 C292,136 274,98 287,55 C300,12 348,8 378,0Z'/%3E%3Cpath stroke-width='1.6' stroke-opacity='0.20' d='M374,28 C398,20 412,60 401,102 C390,144 358,158 326,146 C294,134 280,100 292,63 C304,26 350,36 374,28Z'/%3E%3Cpath stroke-width='1' stroke-opacity='0.14' d='M370,54 C388,48 399,80 389,113 C379,146 352,156 324,145 C296,134 284,103 294,72 C304,41 352,60 370,54Z'/%3E%3Cpath stroke-width='1.2' stroke-opacity='0.16' d='M22,400 C-13,390 -24,350 -10,305 C4,260 42,240 79,252 C116,264 128,302 115,344 C102,386 57,410 22,400Z'/%3E%3Cpath stroke-width='1.6' stroke-opacity='0.20' d='M26,374 C-1,365 -8,332 4,294 C16,256 48,240 78,251 C108,262 118,295 106,333 C94,371 53,383 26,374Z'/%3E%3Cpath stroke-width='1' stroke-opacity='0.14' d='M30,350 C9,342 3,314 14,282 C25,250 53,237 78,247 C103,257 111,286 100,320 C89,354 51,358 30,350Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-image: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url("/Images/4060492.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 @keyframes pulse-glow {
@@ -181,4 +209,9 @@ main > section + section::before {
   background: linear-gradient(to right, transparent, rgba(254, 101, 42, 0.5), transparent);
   pointer-events: none;
   z-index: 10;
+}
+
+/* Thistails Sans on all small all-caps label elements sitewide */
+.uppercase.tracking-widest:not(.font-heading) {
+  font-family: var(--font-label);
 }

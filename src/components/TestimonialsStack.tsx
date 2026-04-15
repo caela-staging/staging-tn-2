@@ -167,8 +167,11 @@ export function TestimonialsStack({ items = allTestimonials, dark = false }: Pro
                 transformStyle: 'preserve-3d',
                 zIndex: isActive ? 10 : 5,
                 cursor: isActive ? 'default' : 'pointer',
+                boxShadow: isActive
+                  ? '0 25px 50px -12px rgba(0,0,0,0.5), 0 0 40px rgba(254,101,42,0.55), 0 0 0 1px rgba(254,101,42,0.7)'
+                  : '0 10px 30px rgba(0,0,0,0.3), 0 0 18px rgba(254,101,42,0.25), 0 0 0 1px rgba(254,101,42,0.35)',
               }}
-              className="overflow-hidden rounded-xl shadow-2xl"
+              className="overflow-hidden rounded-xl"
             >
               {/* Background image */}
               {item.img && (
@@ -182,7 +185,8 @@ export function TestimonialsStack({ items = allTestimonials, dark = false }: Pro
               )}
 
               {/* Overlays */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-black/40" />
+              <div className="absolute inset-0 bg-black/70" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
 
               {/* Trade badge — top right */}
               <span className="absolute top-4 right-4 text-[10px] font-bold uppercase tracking-widest bg-black/50 text-white/90 px-2 py-1">
@@ -191,7 +195,7 @@ export function TestimonialsStack({ items = allTestimonials, dark = false }: Pro
 
               {/* Quote */}
               <div className="absolute inset-0 flex items-center justify-center px-8">
-                <p className={`text-white leading-relaxed text-center transition-all duration-300 ${isActive ? 'text-sm opacity-90' : 'text-xs opacity-0'}`}>
+                <p className={`text-white leading-relaxed text-center font-bold transition-all duration-300 ${isActive ? 'text-base opacity-90' : 'text-xs opacity-0'}`}>
                   "{item.description}"
                 </p>
               </div>
@@ -199,7 +203,7 @@ export function TestimonialsStack({ items = allTestimonials, dark = false }: Pro
               {/* Name + company */}
               <div className="absolute bottom-0 left-0 right-0 px-6 pb-5">
                 <h3 className="font-heading text-xl uppercase text-white leading-none">{item.title}</h3>
-                <p className="text-white/60 text-xs mt-1 uppercase tracking-wider">{item.company}</p>
+                <p className="text-[#FE652A] text-xs mt-1 uppercase tracking-wider font-semibold">{item.company}</p>
               </div>
             </motion.div>
           );

@@ -20,11 +20,9 @@ socialLinks={[
         {
           title: "Coaching",
           links: [
-            { name: "CSR Coaching", href: "/coaching/csr" },
-            { name: "Business Coaching", href: "/coaching/business" },
-            { name: "Sales Coaching", href: "/coaching/sales" },
-            { name: "Training Coaching", href: "/coaching/training" },
             { name: "Marketing Coaching", href: "/coaching/marketing" },
+            { name: "Sales Coaching", href: "/coaching/sales" },
+            { name: "Operations Coaching", href: "/coaching/operations" },
           ],
         },
         {
