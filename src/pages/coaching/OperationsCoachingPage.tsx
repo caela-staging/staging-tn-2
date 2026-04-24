@@ -1,5 +1,8 @@
 import { Settings } from 'lucide-react';
+import { motion } from 'motion/react';
 import { CoachingSubPage, CoachingSubPageData } from './CoachingSubPage';
+import { AnimatedGradientText } from '@/components/AnimatedGradientText';
+import { CompassButton } from '@/components/ui/compass-button';
 
 const data: CoachingSubPageData = {
   slug: 'operations',
@@ -16,18 +19,7 @@ const data: CoachingSubPageData = {
   ],
   introImg: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop',
   introImgAlt: 'Operations manager reviewing workflow systems',
-  whatWeCover: [
-    'Standard operating procedures (SOPs) for every key role and process',
-    'Dispatch efficiency: scheduling logic, call-to-truck ratios, and capacity planning',
-    'Job costing and gross margin analysis by trade and service type',
-    'Management structure: roles, accountability, and performance reviews',
-    'Tech stack review: ServiceTitan, Housecall Pro, and field software optimization',
-    'On-call and after-hours systems that don\'t burn your team out',
-    'Inventory and parts management for service and install departments',
-    'Fleet and vehicle management standards',
-    'Hiring and onboarding frameworks built for the trades',
-    'KPI dashboards for operations managers and service coordinators',
-  ],
+  whatWeCover: [],
   coaches: [
     {
       name: 'McKena Harless',
@@ -53,6 +45,82 @@ const data: CoachingSubPageData = {
   icon: Settings,
 };
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } },
+};
+
+const stagger = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
+};
+
+function OperationsWhatWeCoverSection() {
+  return (
+    <section className="py-24 bg-card border-t border-border/30">
+      <div className="container mx-auto px-6 md:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+          {/* Text — left */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={stagger}
+            viewport={{ once: true }}
+          >
+            <motion.div variants={fadeUp} className="flex items-center gap-4 mb-6">
+              <div className="w-12 h-12 bg-background border border-border/50 flex items-center justify-center">
+                <Settings className="w-6 h-6 text-primary" />
+              </div>
+              <p className="text-xs font-bold uppercase tracking-widest text-primary">
+                What We Cover
+              </p>
+            </motion.div>
+
+            <motion.h2 variants={fadeUp} className="font-heading text-4xl md:text-5xl uppercase text-foreground mb-8 leading-none">
+              Build Systems. <AnimatedGradientText>Scale Confidently.</AnimatedGradientText>
+            </motion.h2>
+
+            <motion.p variants={fadeUp} className="text-foreground/80 leading-relaxed text-lg mb-6">
+              Operations coaching at True North starts with the foundation every scaling company needs: clear SOPs, smart dispatch logic, and a management structure that holds your team accountable — without you in the middle of every decision.
+            </motion.p>
+
+            <motion.p variants={fadeUp} className="text-foreground/80 leading-relaxed text-lg mb-6">
+              From job costing and gross margin analysis to tech stack optimization and KPI dashboards — we build the operational infrastructure that turns a chaotic company into a predictable, profitable one.
+            </motion.p>
+
+            <motion.div variants={fadeUp} className="mt-4">
+              <CompassButton to="/connect">Book a Discovery Call</CompassButton>
+            </motion.div>
+          </motion.div>
+
+          {/* Photo — right */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
+            <span className="absolute -top-1 -left-1 w-6 h-6 border-t-[3px] border-l-[3px] border-primary z-20 pointer-events-none" />
+            <span className="absolute -top-1 -right-1 w-6 h-6 border-t-[3px] border-r-[3px] border-primary z-20 pointer-events-none" />
+            <span className="absolute -bottom-1 -left-1 w-6 h-6 border-b-[3px] border-l-[3px] border-primary z-20 pointer-events-none" />
+            <span className="absolute -bottom-1 -right-1 w-6 h-6 border-b-[3px] border-r-[3px] border-primary z-20 pointer-events-none" />
+            <img
+              src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2070&auto=format&fit=crop"
+              alt="Operations team building systems for a home service company"
+              className="relative z-10 w-full aspect-[4/3] object-cover"
+              style={{ marginTop: '15px', marginBottom: '15px' }}
+              referrerPolicy="no-referrer"
+            />
+          </motion.div>
+
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function OperationsCoachingPage() {
-  return <CoachingSubPage data={data} />;
+  return <CoachingSubPage data={data} whatWeCoverOverride={<OperationsWhatWeCoverSection />} />;
 }

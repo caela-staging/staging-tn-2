@@ -2,18 +2,17 @@ import { Link } from 'react-router-dom';
 import mckenaPhoto from '/Images/IMG_7985 (1).jpeg';
 import stackedLogo from '/Images/True North_stacked full logo grey.svg';
 import { CountUpStat } from '@/components/CountUpStat';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { motion } from 'motion/react';
 import { SpotlightCard } from '@/components/SpotlightCard';
+import { PhotoFrame } from '@/components/ui/photo-frame';
 import { AnimatedGradientText } from '@/components/AnimatedGradientText';
 import { CompassButton } from '@/components/ui/compass-button';
 import { StepContactForm } from '@/components/StepContactForm';
 import {
   CheckCircle2,
-  ArrowRight,
   Shield,
   Target,
   TrendingUp,
@@ -142,7 +141,7 @@ export function About() {
             initial="hidden"
             animate="visible"
             variants={fadeUp}
-            className="font-heading text-5xl md:text-7xl lg:text-8xl uppercase text-foreground mb-6 leading-none"
+            className="font-heading text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase text-foreground mb-6 leading-none"
           >
             About <br />
             <AnimatedGradientText>True North</AnimatedGradientText>
@@ -152,7 +151,7 @@ export function About() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.4 }}
-            className="text-3xl font-script text-primary max-w-2xl mx-auto mb-12 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
+            className="text-xl md:text-3xl font-script text-primary max-w-2xl mx-auto mb-12 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
           >
             A team of coaches who have lived the trades — and built the playbook to prove it.
           </motion.p>
@@ -182,7 +181,7 @@ export function About() {
             <motion.div
               key={s.label}
               variants={fadeUp}
-              className={`py-8 px-6 flex flex-col items-center justify-center relative ${i < 3 ? 'border-r border-background/10' : ''}`}
+              className={`py-8 px-6 flex flex-col items-center justify-center relative border-background/10 ${i % 2 === 0 ? 'border-r' : ''} ${i < 2 ? 'border-b md:border-b-0' : ''} ${i < 3 ? 'md:border-r' : ''}`}
             >
               <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
               <CountUpStat {...s} className="text-background" />
@@ -192,17 +191,8 @@ export function About() {
       </section>
 
       {/* ── PHILOSOPHY / MISSION ──────────────────────────────────── */}
-      <section className="py-24 md:py-32 bg-background bg-topography relative overflow-hidden">
-        <motion.div
-          initial={{ x: 100, opacity: 0 }}
-          whileInView={{ x: 0, opacity: 1 }}
-          transition={{ duration: 1.5, ease: 'easeOut' }}
-          viewport={{ once: true }}
-          className="absolute top-1/2 right-0 -translate-y-1/2 text-[16vw] font-heading text-foreground/[0.02] leading-none pointer-events-none select-none"
-        >
-          NORTH
-        </motion.div>
-
+      <section className="py-24 md:py-32 bg-background relative overflow-hidden">
+        <div className="absolute inset-0 bg-topography opacity-[0.30] pointer-events-none" />
         <div className="container mx-auto px-6 md:px-12 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
@@ -213,15 +203,10 @@ export function About() {
               viewport={{ once: true }}
               className="relative"
             >
-              <span className="absolute -top-1 -left-1 w-6 h-6 border-t-[3px] border-l-[3px] border-primary z-20 pointer-events-none" />
-              <span className="absolute -top-1 -right-1 w-6 h-6 border-t-[3px] border-r-[3px] border-primary z-20 pointer-events-none" />
-              <span className="absolute -bottom-1 -left-1 w-6 h-6 border-b-[3px] border-l-[3px] border-primary z-20 pointer-events-none" />
-              <span className="absolute -bottom-1 -right-1 w-6 h-6 border-b-[3px] border-r-[3px] border-primary z-20 pointer-events-none" />
-              <img
+              <PhotoFrame
                 src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2232&auto=format&fit=crop"
                 alt="True North coaching session"
-                className="relative z-10 w-full aspect-square object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                referrerPolicy="no-referrer"
+                innerClassName="aspect-square"
               />
             </motion.div>
 
@@ -261,88 +246,125 @@ export function About() {
         </div>
       </section>
 
-      {/* ── TEAM ─────────────────────────────────────────────────── */}
-      <section id="team" className="py-24 bg-background bg-grain relative border-t border-border/30">
-        <div className="container mx-auto px-6 md:px-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
-          >
-            <p className="text-xs font-bold uppercase tracking-widest text-primary mb-4 flex items-center justify-center gap-3">
-              <span className="w-8 h-px bg-primary" />
-              The People Behind the Work
-              <span className="w-8 h-px bg-primary" />
-            </p>
-            <h2 className="font-heading text-4xl md:text-5xl uppercase text-foreground leading-none mb-6">
-              Meet the <AnimatedGradientText>Team</AnimatedGradientText>
-            </h2>
-            <p className="text-lg font-script text-primary max-w-xl mx-auto">
-              Every coach on this team has lived the trades — we're not theorists.
-            </p>
-          </motion.div>
+      {/* ── TEAM TEASER ──────────────────────────────────────────── */}
+      <section id="team" className="py-24 bg-card bg-grain relative border-t border-border/30 overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none select-none">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full filter blur-[120px]" />
+        </div>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            variants={stagger}
-            viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-8"
-          >
-            {team.map((member, i) => (
-              <motion.div key={i} variants={fadeUp}>
-                <SpotlightCard className="group bg-card border-border/40 hover:border-primary/40 transition-all duration-500 hover:shadow-[0_8px_30px_rgba(232,96,10,0.12)] rounded-none h-full">
-                  <div className="flex flex-col sm:flex-row gap-0 h-full">
-                    {/* Photo */}
-                    <div className="relative w-full sm:w-48 shrink-0 overflow-hidden">
+        <div className="container mx-auto px-6 md:px-12 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+
+            {/* Left: content + CTA */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              variants={stagger}
+              viewport={{ once: true }}
+              className="space-y-8"
+            >
+              <motion.div variants={fadeUp}>
+                <p className="text-xs font-bold uppercase tracking-widest text-primary mb-4 flex items-center gap-3">
+                  <span className="w-8 h-px bg-primary" />
+                  The People Behind the Work
+                </p>
+                <h2 className="font-heading text-4xl md:text-5xl uppercase text-foreground leading-none mb-6">
+                  Meet Your <AnimatedGradientText>Coaches</AnimatedGradientText>
+                </h2>
+              </motion.div>
+
+              <motion.p variants={fadeUp} className="text-2xl font-script text-primary leading-relaxed">
+                Every coach on this team has lived the trades — we're not theorists.
+              </motion.p>
+
+              <motion.p variants={fadeUp} className="text-foreground/80 leading-relaxed text-lg">
+                Our coaches have worked dispatch boards, handled service calls, and built systems inside real home service companies. When they coach you, they're not guessing — they've already solved the problem you're facing.
+              </motion.p>
+
+              <motion.ul variants={stagger} className="space-y-3">
+                {['Founder-led, trades-only coaching team', 'Every coach has field experience, not just certifications', 'Specialists in CSR, sales, operations, and leadership'].map((item) => (
+                  <motion.li key={item} variants={fadeUp} className="flex items-center gap-3 text-sm text-foreground/70">
+                    <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
+                    {item}
+                  </motion.li>
+                ))}
+              </motion.ul>
+
+              <motion.div variants={fadeUp}>
+                <CompassButton to="/coaching">Meet Your Coaches</CompassButton>
+              </motion.div>
+            </motion.div>
+
+            {/* Right: team photos — grid on mobile, stacked on desktop */}
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              {/* Mobile: 2×2 grid */}
+              <div className="grid grid-cols-2 gap-3 lg:hidden">
+                {team.map((member, i) => (
+                  <div key={i} className="relative overflow-hidden border border-border/40 group">
+                    <img
+                      src={member.img}
+                      alt={member.name}
+                      className="w-full aspect-[4/5] object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                      referrerPolicy="no-referrer"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-2">
+                      <p className="font-heading text-xs uppercase text-foreground leading-none">{member.name}</p>
+                      <p className="text-primary text-[9px] uppercase tracking-widest mt-0.5">{member.role}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Desktop: stacked/overlapping layout */}
+              <div className="relative h-[640px] hidden lg:block">
+                {team.map((member, i) => {
+                  const positions = [
+                    'left-10 top-0 w-64 h-80',
+                    'left-[270px] top-6 w-64 h-80',
+                    'left-14 top-64 w-64 h-80',
+                    'left-[265px] top-[268px] w-64 h-80',
+                  ];
+                  const rotations = ['-rotate-2', 'rotate-3', 'rotate-1', '-rotate-1'];
+                  const zIndexes = ['z-[1]', 'z-[2]', 'z-[3]', 'z-[4]'];
+                  return (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: i * 0.1 }}
+                      viewport={{ once: true }}
+                      className={`absolute ${positions[i]} ${rotations[i]} ${zIndexes[i]} overflow-hidden border-2 border-border/40 hover:border-primary/60 hover:z-[50] transition-all duration-500 group shadow-xl`}
+                    >
                       <img
                         src={member.img}
                         alt={member.name}
-                        className="w-full h-56 sm:h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
                         referrerPolicy="no-referrer"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t sm:bg-gradient-to-r from-card via-transparent to-transparent" />
-                    </div>
-                    {/* Content */}
-                    <div className="p-8 flex flex-col justify-between flex-1">
-                      <div>
-                        <h3 className="font-heading text-2xl uppercase text-foreground mb-1">{member.name}</h3>
-                        <p className="text-primary uppercase tracking-widest text-xs font-semibold mb-5">{member.role}</p>
-                        <p className="text-muted-foreground text-sm leading-relaxed mb-6">{member.bio}</p>
-                        <ul className="space-y-2">
-                          {member.credentials.map((c, j) => (
-                            <li key={j} className="flex items-start gap-2">
-                              <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                              <span className="text-foreground/70 text-xs leading-relaxed">{c}</span>
-                            </li>
-                          ))}
-                        </ul>
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                        <p className="font-heading text-sm uppercase text-foreground leading-none">{member.name}</p>
+                        <p className="text-primary text-[10px] uppercase tracking-widest mt-0.5">{member.role}</p>
                       </div>
-                      <div className="mt-6">
-                        <Button asChild variant="link" className="text-foreground hover:text-primary p-0 h-auto font-bold uppercase tracking-wider group/btn text-xs">
-                          <Link to="/connect" className="flex items-center gap-2">
-                            Book a Discovery Call
-                            <ArrowRight className="w-3 h-3 group-hover/btn:translate-x-1 transition-transform" />
-                          </Link>
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </SpotlightCard>
-              </motion.div>
-            ))}
-          </motion.div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </motion.div>
+
+          </div>
         </div>
       </section>
 
       {/* ── VALUES / VALUE PROPOSITION ────────────────────────────── */}
       <section className="py-24 bg-foreground relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
-          <div className="text-[20vw] font-heading text-background/[0.03] leading-none absolute -bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap">VALUES</div>
-        </div>
-
         <div className="container mx-auto px-6 md:px-12 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -384,7 +406,7 @@ export function About() {
       </section>
 
       {/* ── TURNING POINT ─────────────────────────────────────────── */}
-      <section className="py-24 bg-background bg-topography relative overflow-hidden border-t border-border/30">
+      <section className="py-24 bg-background relative overflow-hidden border-t border-border/30">
         <div className="container mx-auto px-6 md:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
@@ -433,7 +455,7 @@ export function About() {
       </section>
 
       {/* ── WHY TRUE NORTH VS OTHERS ──────────────────────────────── */}
-      <section className="py-24 bg-background relative overflow-hidden border-t border-border/30">
+      <section className="py-24 bg-card relative overflow-hidden border-t border-border/30">
         <div className="container mx-auto px-6 md:px-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -493,7 +515,8 @@ export function About() {
       <TestimonialsStack />
 
       {/* ── CTA FORM ─────────────────────────────────────────────── */}
-      <section className="py-32 bg-background relative overflow-hidden">
+      <section className="py-32 bg-card relative overflow-hidden">
+        <div className="absolute inset-0 bg-topography opacity-[0.30] pointer-events-none" />
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[40rem] h-[20rem] bg-primary/10 rounded-full filter blur-[100px] z-0" />
 
         <div className="container relative z-10 mx-auto px-6 md:px-12 max-w-6xl">

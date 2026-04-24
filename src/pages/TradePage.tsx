@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { FaqSection } from '@/components/FaqSection';
+import { PhotoFrame } from '@/components/ui/photo-frame';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
@@ -11,11 +12,12 @@ import {
   ArrowRight,
   CheckCircle2,
   XCircle,
-  Navigation,
   LucideIcon,
 } from 'lucide-react';
+import { TrailSection } from '@/components/ui/trail-section';
 import { TestimonialsStack } from '@/components/TestimonialsStack';
 import { FindYourTrueNorth } from '@/components/FindYourTrueNorth';
+import { CountUpStat } from '@/components/CountUpStat';
 import truenorthIcon from '/Images/True North_icon badge black.svg';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -31,6 +33,23 @@ export interface TradeCoach {
   role: string;
   bio: string;
   img: string;
+}
+
+export interface TradePitchSection {
+  heading1: string;
+  heading1Highlight?: string;
+  body1: string;
+  listHeading1: string;
+  list1: string[];
+  heading2: string;
+  heading2Highlight?: string;
+  body2: string;
+  listHeading2: string;
+  list2: string[];
+  closingLine: string;
+  sidebarHeadline: string;
+  sidebarBody: string;
+  sidebarCtaLabel: string;
 }
 
 export interface TradePageData {
@@ -49,6 +68,8 @@ export interface TradePageData {
   benefitsTitle: string;
   benefitsBody: string;
   benefits: string[];
+  benefitsImg?: string;
+  pitchSection?: TradePitchSection;
   coaches: TradeCoach[];
   ctaHeadline: string;
   ctaBody: string;
@@ -65,6 +86,13 @@ const stagger = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
 };
+
+const stats = [
+  { end: 10, suffix: '+', prefix: '', label: 'Years Coaching the Trades' },
+  { end: 500, suffix: '+', prefix: '', label: 'Businesses Transformed' },
+  { end: 40, suffix: 'M+', prefix: '$', label: 'Revenue Generated for Clients' },
+  { end: 4, suffix: '', prefix: '', label: 'Trade Specialties' },
+];
 
 // ─── TradePage Component ──────────────────────────────────────────────────────
 
@@ -137,24 +165,36 @@ export function TradePage({ data }: { data: TradePageData }) {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <CompassButton href="#overview">See How It Works</CompassButton>
-            <CompassButton href="#form" className="bg-transparent text-primary hover:bg-primary hover:text-[#FCECBB]" arrowsClassName="opacity-0 group-hover:opacity-100 transition-opacity duration-300">Book a Discovery Call</CompassButton>
+            <CompassButton href="#form">Book a Discovery Call</CompassButton>
           </motion.div>
         </div>
       </section>
 
-      {/* ── OVERVIEW TEXT BLOCK ───────────────────────────────────── */}
-      <section id="overview" className="py-24 bg-background bg-topography relative overflow-hidden">
+      {/* ── STATS BAR ────────────────────────────────────────────── */}
+      <section className="bg-foreground text-background">
         <motion.div
-          initial={{ x: -100, opacity: 0 }}
-          whileInView={{ x: 0, opacity: 1 }}
-          transition={{ duration: 1.5, ease: 'easeOut' }}
+          initial="hidden"
+          whileInView="visible"
+          variants={stagger}
           viewport={{ once: true }}
-          className="hidden md:block absolute top-1/2 left-0 -translate-y-1/2 text-[16vw] font-heading text-foreground/[0.02] leading-none pointer-events-none select-none"
+          className="grid grid-cols-2 md:grid-cols-4"
         >
-          {data.trade.toUpperCase()}
+          {stats.map((s, i) => (
+            <motion.div
+              key={s.label}
+              variants={fadeUp}
+              className={`py-8 px-6 flex flex-col items-center justify-center relative border-background/10 ${i % 2 === 0 ? 'border-r' : ''} ${i < 2 ? 'border-b md:border-b-0' : ''} ${i < 3 ? 'md:border-r' : ''}`}
+            >
+              <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
+              <CountUpStat {...s} className="text-background" />
+            </motion.div>
+          ))}
         </motion.div>
+      </section>
 
+      {/* ── OVERVIEW TEXT BLOCK ───────────────────────────────────── */}
+      <section id="overview" className="py-24 bg-background relative overflow-hidden">
+        <div className="absolute inset-0 bg-topography opacity-[0.30] pointer-events-none" />
         <div className="container mx-auto px-6 md:px-12 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
@@ -166,12 +206,10 @@ export function TradePage({ data }: { data: TradePageData }) {
               viewport={{ once: true }}
               className="relative"
             >
-              <div className="absolute inset-0 bg-primary/20 translate-x-4 translate-y-4" />
-              <img
+              <PhotoFrame
                 src={data.overviewImg}
                 alt={`${data.trade} coaching`}
-                className="relative z-10 w-full aspect-square object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                referrerPolicy="no-referrer"
+                innerClassName="aspect-square"
               />
             </motion.div>
 
@@ -211,62 +249,10 @@ export function TradePage({ data }: { data: TradePageData }) {
       </section>
 
       {/* ── THREE-STEP PROCESS ────────────────────────────────────── */}
-      <section className="py-24 bg-background relative overflow-hidden">
-        <div className="container mx-auto px-6 md:px-12 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
-          >
-            <p className="text-xs font-bold uppercase tracking-widest text-primary mb-4">
-              The Process
-            </p>
-            <h2 className="font-heading text-4xl md:text-5xl uppercase text-foreground leading-none">
-              How We Work
-            </h2>
-          </motion.div>
-
-          {/* Timeline */}
-          <div className="relative">
-            {/* Horizontal line spanning center of columns */}
-            <div className="absolute top-[11px] left-[16.67%] right-[16.67%] h-px bg-primary" />
-
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              variants={stagger}
-              viewport={{ once: true }}
-              className="grid grid-cols-1 md:grid-cols-3"
-            >
-              {data.steps.map((step, i) => (
-                <motion.div
-                  key={step.number}
-                  variants={fadeUp}
-                  className="flex flex-col items-center text-center px-8"
-                >
-                  {/* Compass icon sitting on the line */}
-                  <Navigation className="w-6 h-6 text-primary fill-primary mb-8 relative z-10" />
-
-                  <p className="text-xs font-bold uppercase tracking-widest text-primary mb-3">
-                    Step {step.number}
-                  </p>
-                  <h4 className="font-heading text-2xl uppercase text-foreground mb-4 leading-none">
-                    {step.title}
-                  </h4>
-                  <p className="text-foreground/60 leading-relaxed text-sm max-w-xs">
-                    {step.body}
-                  </p>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      <TrailSection steps={data.steps} />
 
       {/* ── BEFORE / AFTER ────────────────────────────────────────── */}
-      <section className="py-24 bg-background bg-grain relative overflow-hidden border-b border-border/20">
+      <section className="py-24 bg-card relative overflow-hidden border-b border-border/20">
         <div className="container mx-auto px-6 md:px-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -293,7 +279,7 @@ export function TradePage({ data }: { data: TradePageData }) {
           >
             {/* Before */}
             <motion.div variants={fadeUp}>
-              <div className="bg-card border border-border/40 p-8 h-full">
+              <div className="bg-background border border-border/40 p-8 h-full">
                 <p className="font-heading text-xl uppercase text-muted-foreground mb-6 flex items-center gap-3">
                   <span className="w-6 h-px bg-muted-foreground/50" />
                   Before
@@ -311,7 +297,7 @@ export function TradePage({ data }: { data: TradePageData }) {
 
             {/* After */}
             <motion.div variants={fadeUp}>
-              <div className="bg-card border border-primary/30 p-8 h-full shadow-[0_0_30px_rgba(232,96,10,0.08)]">
+              <div className="bg-background border border-primary/30 p-8 h-full shadow-[0_0_30px_rgba(232,96,10,0.08)]">
                 <p className="font-heading text-xl uppercase text-primary mb-6 flex items-center gap-3">
                   <span className="w-6 h-px bg-primary" />
                   After True North
@@ -331,9 +317,26 @@ export function TradePage({ data }: { data: TradePageData }) {
       </section>
 
       {/* ── COACHING BENEFITS ─────────────────────────────────────── */}
-      <section className="py-24 bg-background bg-topography relative overflow-hidden">
+      <section className="py-24 bg-background relative overflow-hidden">
         <div className="container mx-auto px-6 md:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+            {/* Photo — left */}
+            <motion.div
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <PhotoFrame
+                src={data.benefitsImg ?? data.overviewImg}
+                alt={`${data.trade} coaching`}
+                innerClassName="aspect-square"
+              />
+            </motion.div>
+
+            {/* Content — right */}
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -344,40 +347,115 @@ export function TradePage({ data }: { data: TradePageData }) {
                 <span className="w-8 h-px bg-primary" />
                 What You Get
               </motion.p>
-              <motion.h2 variants={fadeUp} className="font-heading text-4xl md:text-5xl uppercase text-foreground mb-8 leading-none">
+              <motion.h2 variants={fadeUp} className="font-heading text-4xl md:text-5xl uppercase text-foreground mb-6 leading-none">
                 {data.benefitsTitle}
               </motion.h2>
-              <motion.p variants={fadeUp} className="text-foreground/80 leading-relaxed text-lg">
+              <motion.p variants={fadeUp} className="text-foreground/80 leading-relaxed text-lg mb-8">
                 {data.benefitsBody}
               </motion.p>
+              <motion.ul variants={stagger} className="space-y-3">
+                {data.benefits.map((b, i) => (
+                  <motion.li
+                    key={i}
+                    variants={fadeUp}
+                    className="flex items-start gap-3 group"
+                  >
+                    <ArrowRight className="w-4 h-4 text-primary shrink-0 mt-0.5 group-hover:translate-x-1 transition-transform duration-300" />
+                    <span className="text-foreground/80 text-sm leading-relaxed">{b}</span>
+                  </motion.li>
+                ))}
+              </motion.ul>
             </motion.div>
 
-            <motion.ul
-              initial="hidden"
-              whileInView="visible"
-              variants={stagger}
-              viewport={{ once: true }}
-              className="space-y-4 pt-2"
-            >
-              {data.benefits.map((b, i) => (
-                <motion.li
-                  key={i}
-                  variants={fadeUp}
-                  className="flex items-start gap-4 p-4 bg-card border border-border/40 hover:border-primary/40 transition-colors duration-300 group"
-                >
-                  <ArrowRight className="w-4 h-4 text-primary shrink-0 mt-0.5 group-hover:translate-x-1 transition-transform duration-300" />
-                  <span className="text-foreground text-sm leading-relaxed">{b}</span>
-                </motion.li>
-              ))}
-            </motion.ul>
           </div>
         </div>
       </section>
+
+      {/* ── PITCH SECTION (optional) ──────────────────────────────── */}
+      {data.pitchSection && (
+        <section className="py-24 bg-card border-t border-border/20 relative overflow-hidden">
+          <div className="container mx-auto px-6 md:px-12">
+            <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-y-12 lg:gap-x-16 items-start">
+
+              {/* Main content — 2 cols */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+                className=""
+              >
+                <h2 className="font-heading text-3xl md:text-4xl uppercase text-foreground mb-6 leading-tight">
+                  {data.pitchSection.heading1}{data.pitchSection.heading1Highlight && <> <AnimatedGradientText>{data.pitchSection.heading1Highlight}</AnimatedGradientText></>}
+                </h2>
+                <p className="text-foreground/80 leading-relaxed text-lg mb-6">
+                  {data.pitchSection.body1}
+                </p>
+                <p className="font-bold text-foreground mb-4 text-sm uppercase tracking-wide">
+                  {data.pitchSection.listHeading1}
+                </p>
+                <ul className="space-y-3 mb-12">
+                  {data.pitchSection.list1.map((item, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <span className="w-2 h-2 rounded-full bg-primary shrink-0 mt-[0.45rem]" />
+                      <span className="text-foreground/80 leading-relaxed">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <h2 className="font-heading text-3xl md:text-4xl uppercase text-foreground mb-6 leading-tight">
+                  {data.pitchSection.heading2}{data.pitchSection.heading2Highlight && <> <AnimatedGradientText>{data.pitchSection.heading2Highlight}</AnimatedGradientText></>}
+                </h2>
+                <p className="text-foreground/80 leading-relaxed text-lg mb-6">
+                  {data.pitchSection.body2}
+                </p>
+                <p className="font-bold text-foreground mb-4 text-sm uppercase tracking-wide">
+                  {data.pitchSection.listHeading2}
+                </p>
+                <ul className="space-y-3 mb-8">
+                  {data.pitchSection.list2.map((item, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <span className="w-2 h-2 rounded-full bg-primary shrink-0 mt-[0.45rem]" />
+                      <span className="text-foreground/80 leading-relaxed">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="text-foreground/60 italic text-base">
+                  {data.pitchSection.closingLine}
+                </p>
+              </motion.div>
+
+              {/* Sidebar — 1 col */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+                className=""
+              >
+                <div className="sticky top-28 bg-foreground p-8 md:p-10">
+                  <h3 className="font-script text-2xl italic text-primary mb-6 leading-tight">
+                    {data.pitchSection.sidebarHeadline}
+                  </h3>
+                  <p className="text-background/75 leading-relaxed text-sm mb-8">
+                    {data.pitchSection.sidebarBody}
+                  </p>
+                  <CompassButton href="#form">
+                    {data.pitchSection.sidebarCtaLabel}
+                  </CompassButton>
+                </div>
+              </motion.div>
+
+            </div>
+          </div>
+        </section>
+      )}
 
       <FaqSection
         heading="Questions About"
         headingHighlight="Working Together"
         subheading="Straight answers before you take the next step."
+        bgClass="bg-background"
         items={[
           {
             question: 'Do you only work with companies in this trade?',
@@ -447,6 +525,55 @@ export function TradePage({ data }: { data: TradePageData }) {
               </div>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* ── FEATURED PARTNER ─────────────────────────────────────── */}
+      <section className="py-24 bg-card relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60rem] h-[30rem] bg-primary/10 rounded-full filter blur-[120px] pointer-events-none" />
+        <div className="container mx-auto px-6 md:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-0 border border-primary/50 shadow-[0_0_40px_rgba(254,101,42,0.35),0_0_80px_rgba(254,101,42,0.15)]"
+          >
+            <div className="relative min-h-[400px] overflow-hidden group">
+              <img
+                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2069&auto=format&fit=crop"
+                alt="HVAC Technician"
+                className="absolute inset-0 w-full h-full object-cover grayscale group-hover:scale-105 transition-transform duration-700"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-transparent mix-blend-multiply" />
+            </div>
+            <div className="bg-card p-6 sm:p-10 md:p-12 lg:p-20 flex flex-col justify-center relative overflow-hidden">
+              <div className="text-sm font-bold uppercase tracking-widest text-primary mb-8 flex items-center gap-4 relative z-10">
+                <span className="w-12 h-px bg-primary" />
+                Featured Partner
+              </div>
+              <h3 className="font-heading text-3xl md:text-4xl lg:text-5xl uppercase text-foreground mb-8 relative z-10">
+                Goettl Air Conditioning & Plumbing
+              </h3>
+              <blockquote className="text-lg text-foreground/90 italic mb-8 border-l-2 border-primary pl-6 relative z-10">
+                "True North Strategies completely transformed our CSR and dispatch operations. The accountability and systems they implemented directly led to our record-breaking quarter."
+              </blockquote>
+              <div className="grid grid-cols-2 gap-8 mb-12 relative z-10">
+                <div>
+                  <p className="font-heading text-4xl text-primary mb-2 drop-shadow-[0_0_10px_rgba(254,101,42,0.3)]">+45%</p>
+                  <p className="text-xs uppercase tracking-widest text-muted-foreground font-semibold">Booking Rate</p>
+                </div>
+                <div>
+                  <p className="font-heading text-4xl text-primary mb-2 drop-shadow-[0_0_10px_rgba(254,101,42,0.3)]">$2.4M</p>
+                  <p className="text-xs uppercase tracking-widest text-muted-foreground font-semibold">Added Revenue</p>
+                </div>
+              </div>
+              <Link to="/about" className="flex items-center gap-2 text-foreground hover:text-primary font-bold uppercase tracking-wider group relative z-10 transition-colors">
+                Read Full Story <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+              </Link>
+            </div>
+          </motion.div>
         </div>
       </section>
 

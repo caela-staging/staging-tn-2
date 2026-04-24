@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { AnimatedGradientText } from '@/components/AnimatedGradientText';
@@ -6,6 +7,7 @@ import { ArrowRight, LucideIcon } from 'lucide-react';
 import truenorthIcon from '/Images/True North_icon badge black.svg';
 import { GlowingShadow } from '@/components/ui/glowing-shadow';
 import { FaqSection } from '@/components/FaqSection';
+import { TrailSection } from '@/components/ui/trail-section';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -23,7 +25,7 @@ export interface CoachingSubPageData {
   heroHeadline: string[];         // lines of h1
   heroTagline: string;
   heroImg: string;
-  introTitle: string;
+  introTitle: React.ReactNode;
   introBody: string[];
   introImg: string;
   introImgAlt: string;
@@ -49,7 +51,7 @@ const stagger = {
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-export function CoachingSubPage({ data }: { data: CoachingSubPageData }) {
+export function CoachingSubPage({ data, whatWeCoverOverride }: { data: CoachingSubPageData; whatWeCoverOverride?: React.ReactNode }) {
   const Icon = data.icon;
 
   return (
@@ -115,12 +117,7 @@ export function CoachingSubPage({ data }: { data: CoachingSubPageData }) {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <CompassButton href="#intro">Learn More</CompassButton>
-            <CompassButton
-              to="/connect"
-              className="bg-transparent text-primary hover:bg-primary hover:text-[#FCECBB]"
-              arrowsClassName="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            >
+            <CompassButton to="/connect">
               Book a Discovery Call
             </CompassButton>
           </motion.div>
@@ -128,7 +125,8 @@ export function CoachingSubPage({ data }: { data: CoachingSubPageData }) {
       </section>
 
       {/* ── INTRO WITH PHOTO ─────────────────────────────────────── */}
-      <section id="intro" className="py-24 bg-background bg-topography relative overflow-hidden">
+      <section id="intro" className="py-24 bg-background relative overflow-hidden">
+        <div className="absolute inset-0 bg-topography opacity-[0.30] pointer-events-none" />
         <div className="container mx-auto px-6 md:px-12 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
@@ -188,50 +186,51 @@ export function CoachingSubPage({ data }: { data: CoachingSubPageData }) {
       </section>
 
       {/* ── WHAT WE COVER ─────────────────────────────────────────── */}
-      <section className="py-24 bg-foreground relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
-          <div className="hidden md:block text-[22vw] font-heading text-background/[0.03] leading-none absolute -bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap">
-            FOCUS
+      {whatWeCoverOverride ?? (
+        <section className="py-24 bg-foreground relative overflow-hidden">
+
+
+          <div className="container mx-auto px-6 md:px-12 relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="mb-16 max-w-xl"
+            >
+              <p className="text-xs font-bold uppercase tracking-widest text-primary mb-4 flex items-center gap-3">
+                <span className="w-8 h-px bg-primary" />
+                What We Cover
+              </p>
+              <h2 className="font-heading text-4xl md:text-5xl uppercase text-background leading-none">
+                Every Session. <AnimatedGradientText>Every Detail.</AnimatedGradientText>
+              </h2>
+            </motion.div>
+
+            <motion.ul
+              initial="hidden"
+              whileInView="visible"
+              variants={stagger}
+              viewport={{ once: true }}
+              className="grid grid-cols-1 md:grid-cols-2 gap-4"
+            >
+              {data.whatWeCover.map((item, i) => (
+                <motion.li key={i} variants={fadeUp}>
+                  <GlowingShadow>
+                    <div className="flex items-start gap-4 p-5 bg-background/5 border border-background/10 w-full group">
+                      <ArrowRight className="w-4 h-4 text-primary shrink-0 mt-0.5 group-hover:translate-x-1 transition-transform duration-300" />
+                      <span className="text-background/80 text-sm leading-relaxed">{item}</span>
+                    </div>
+                  </GlowingShadow>
+                </motion.li>
+              ))}
+            </motion.ul>
           </div>
-        </div>
+        </section>
+      )}
 
-        <div className="container mx-auto px-6 md:px-12 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="mb-16 max-w-xl"
-          >
-            <p className="text-xs font-bold uppercase tracking-widest text-primary mb-4 flex items-center gap-3">
-              <span className="w-8 h-px bg-primary" />
-              What We Cover
-            </p>
-            <h2 className="font-heading text-4xl md:text-5xl uppercase text-background leading-none">
-              Every Session. <AnimatedGradientText>Every Detail.</AnimatedGradientText>
-            </h2>
-          </motion.div>
-
-          <motion.ul
-            initial="hidden"
-            whileInView="visible"
-            variants={stagger}
-            viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-4"
-          >
-            {data.whatWeCover.map((item, i) => (
-              <motion.li key={i} variants={fadeUp}>
-                <GlowingShadow>
-                  <div className="flex items-start gap-4 p-5 bg-background/5 border border-background/10 w-full group">
-                    <ArrowRight className="w-4 h-4 text-primary shrink-0 mt-0.5 group-hover:translate-x-1 transition-transform duration-300" />
-                    <span className="text-background/80 text-sm leading-relaxed">{item}</span>
-                  </div>
-                </GlowingShadow>
-              </motion.li>
-            ))}
-          </motion.ul>
-        </div>
-      </section>
+      {/* ── HOW WE WORK ──────────────────────────────────────────── */}
+      <TrailSection />
 
       {/* ── COACH BIOS ────────────────────────────────────────────── */}
       <section className="py-24 bg-background bg-grain border-t border-border/30">
@@ -281,7 +280,7 @@ export function CoachingSubPage({ data }: { data: CoachingSubPageData }) {
                   <p className="text-muted-foreground leading-relaxed mb-4">{coach.bio[0]}</p>
                   <p className="text-muted-foreground leading-relaxed">{coach.bio[1]}</p>
                   <div className="mt-8">
-                    <CompassButton to="/connect" className="inline-flex">Book a Call with {coach.name.split(' ')[0]}</CompassButton>
+                    <CompassButton to="/connect" className="inline-flex">Book a Discovery Call with {coach.name.split(' ')[0]}</CompassButton>
                   </div>
                 </div>
               </motion.div>
@@ -294,6 +293,7 @@ export function CoachingSubPage({ data }: { data: CoachingSubPageData }) {
         heading="Common"
         headingHighlight="Questions"
         subheading="Everything you want to know before getting started."
+        bgClass="bg-card"
         items={[
           {
             question: 'What does a typical coaching session look like?',

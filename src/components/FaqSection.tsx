@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Plus, Minus } from 'lucide-react';
 import { AnimatedGradientText } from '@/components/AnimatedGradientText';
+import { CompassButton } from '@/components/ui/compass-button';
 
 export interface FaqItem {
   question: string;
@@ -14,6 +15,7 @@ interface FaqSectionProps {
   subheading?: string;
   items: FaqItem[];
   dark?: boolean;
+  bgClass?: string;
 }
 
 export function FaqSection({
@@ -22,15 +24,14 @@ export function FaqSection({
   subheading,
   items,
   dark = false,
+  bgClass,
 }: FaqSectionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggle = (i: number) => setOpenIndex(openIndex === i ? null : i);
 
   return (
-    <section className={`py-24 relative overflow-hidden ${dark ? 'bg-foreground' : 'bg-background'}`}>
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
-
+    <section className={`py-24 relative overflow-hidden ${bgClass ?? (dark ? 'bg-foreground' : 'bg-background')}`}>
       <div className="container mx-auto px-6 md:px-12 max-w-4xl relative z-10">
         {/* Header */}
         <motion.div
@@ -130,6 +131,17 @@ export function FaqSection({
             );
           })}
         </div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="flex justify-center mt-12"
+        >
+          <CompassButton to="/connect">Book a Discovery Call</CompassButton>
+        </motion.div>
       </div>
     </section>
   );

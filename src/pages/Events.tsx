@@ -5,6 +5,24 @@ import { AnimatedTabs, Tab } from '@/components/ui/animated-tabs';
 import { CompassButton } from '@/components/ui/compass-button';
 import { AnimatedGradientText } from '@/components/AnimatedGradientText';
 import { TestimonialsStack } from '@/components/TestimonialsStack';
+import { CountUpStat } from '@/components/CountUpStat';
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } },
+};
+
+const stagger = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
+};
+
+const stats = [
+  { end: 10, suffix: '+', prefix: '', label: 'Years Coaching the Trades' },
+  { end: 500, suffix: '+', prefix: '', label: 'Businesses Transformed' },
+  { end: 40, suffix: 'M+', prefix: '$', label: 'Revenue Generated for Clients' },
+  { end: 4, suffix: '', prefix: '', label: 'Trade Specialties' },
+];
 
 // ── Event data ────────────────────────────────────────────────────────────────
 
@@ -243,7 +261,7 @@ export function Events() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="font-heading text-5xl md:text-7xl lg:text-8xl uppercase text-[#FCECBB] leading-none mb-6"
+            className="font-heading text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase text-[#FCECBB] leading-none mb-6"
           >
             Where Growth<br />
             <AnimatedGradientText>Happens Live</AnimatedGradientText>
@@ -256,7 +274,37 @@ export function Events() {
           >
             Workshops, summits, and bootcamps built specifically for home service business owners ready to grow.
           </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="flex justify-center mt-8"
+          >
+            <CompassButton to="/connect">Book a Discovery Call</CompassButton>
+          </motion.div>
         </div>
+      </section>
+
+      {/* ── STATS BAR ── */}
+      <section className="bg-foreground text-background">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          variants={stagger}
+          viewport={{ once: true }}
+          className="grid grid-cols-2 md:grid-cols-4"
+        >
+          {stats.map((s, i) => (
+            <motion.div
+              key={s.label}
+              variants={fadeUp}
+              className={`py-8 px-6 flex flex-col items-center justify-center relative border-background/10 ${i % 2 === 0 ? 'border-r' : ''} ${i < 2 ? 'border-b md:border-b-0' : ''} ${i < 3 ? 'md:border-r' : ''}`}
+            >
+              <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
+              <CountUpStat {...s} className="text-background" />
+            </motion.div>
+          ))}
+        </motion.div>
       </section>
 
       {/* ── Upcoming Events ── */}
@@ -295,7 +343,7 @@ export function Events() {
       </section>
 
       {/* ── Why Attend ── */}
-      <section className="py-24 bg-background bg-topography relative overflow-hidden">
+      <section className="py-24 bg-card relative overflow-hidden">
         <div className="container mx-auto px-6 md:px-12 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -338,7 +386,7 @@ export function Events() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-card border border-border/40 hover:border-primary/40 transition-colors duration-300 p-8"
+                className="bg-background border border-border/40 hover:border-primary/40 transition-colors duration-300 p-8"
               >
                 <span className="font-heading text-6xl text-primary/40 leading-none block mb-4">{item.number}</span>
                 <h3 className="font-heading text-2xl uppercase text-foreground mb-3">{item.title}</h3>
@@ -353,8 +401,10 @@ export function Events() {
       <TestimonialsStack />
 
       {/* ── CTA ── */}
-      <section className="py-24 bg-background border-t border-border/30">
-        <div className="container mx-auto px-6 md:px-12 text-center">
+      <div className="h-px bg-gradient-to-r from-transparent via-[rgba(254,101,42,0.5)] to-transparent" />
+      <section className="py-24 bg-card relative overflow-hidden">
+        <div className="absolute inset-0 bg-topography opacity-[0.30] pointer-events-none" />
+        <div className="container mx-auto px-6 md:px-12 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

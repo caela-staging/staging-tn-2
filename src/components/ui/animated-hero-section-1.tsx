@@ -81,7 +81,7 @@ export const AnimatedHeroSection = ({
       >
         <motion.h1
           variants={itemVariants}
-          className="font-heading text-5xl md:text-7xl lg:text-8xl tracking-normal uppercase text-[#FCECBB] mb-6 leading-none"
+          className="font-heading text-3xl sm:text-5xl md:text-7xl lg:text-8xl tracking-normal uppercase text-[#FCECBB] mb-6 leading-none"
         >
           {title}
         </motion.h1>

@@ -1,19 +1,23 @@
 import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { useState } from 'react';
+import { useState, type ElementType } from 'react';
 import { motion } from 'motion/react';
 import { SpotlightCard } from '@/components/SpotlightCard';
+import { PhotoFrame } from '@/components/ui/photo-frame';
 import { AnimatedGradientText } from '@/components/AnimatedGradientText';
 import { CompassButton } from '@/components/ui/compass-button';
 import { StepContactForm } from '@/components/StepContactForm';
 import { TestimonialsStack } from '@/components/TestimonialsStack';
 import mckenaPhoto from '/Images/IMG_7990.jpeg';
 import stackedLogo from '/Images/True North_stacked full logo grey.svg';
-import { ProcessTimeline } from '@/components/ui/process-timeline';
+import gear1 from '/Images/gear-1.png';
+import gear2 from '/Images/gear-2.png';
+import gear3 from '/Images/gear-3.png';
+import { TrailSection } from '@/components/ui/trail-section';
 import { FaqSection } from '@/components/FaqSection';
+import { CountUpStat } from '@/components/CountUpStat';
 import {
   Settings,
   TrendingUp,
@@ -24,6 +28,73 @@ import {
   Compass,
 } from 'lucide-react';
 
+function GearShape({
+  size,
+  teeth,
+  label,
+  num,
+  icon: Icon,
+  href,
+  fillColor,
+  strokeColor,
+  iconColor,
+  spin = 'cw',
+}: {
+  size: number;
+  teeth: number;
+  label: string;
+  num: string;
+  icon: ElementType;
+  href: string;
+  fillColor: string;
+  strokeColor: string;
+  iconColor: string;
+  spin?: 'cw' | 'ccw';
+}) {
+  const cx = size / 2, cy = size / 2;
+  const outerR = size * 0.44;
+  const rootR  = size * 0.33;
+  const holeR  = size * 0.13;
+  const ta = (Math.PI * 2) / teeth;
+
+  let d = '';
+  for (let i = 0; i < teeth; i++) {
+    const base = (i / teeth) * Math.PI * 2 - Math.PI / 2;
+    const pts = [
+      [rootR,  base - ta * 0.43],
+      [outerR, base - ta * 0.17],
+      [outerR, base + ta * 0.17],
+      [rootR,  base + ta * 0.43],
+    ].map(([r, a]) => `${(cx + r * Math.cos(a!)).toFixed(1)},${(cy + r * Math.sin(a!)).toFixed(1)}`);
+    d += i === 0 ? `M ${pts[0]}` : `L ${pts[0]}`;
+    d += ` L ${pts[1]} L ${pts[2]} L ${pts[3]}`;
+  }
+  d += ' Z';
+  d += ` M ${(cx + holeR).toFixed(1)},${cy.toFixed(1)}`;
+  for (let j = 1; j <= 32; j++) {
+    const a = -(j / 32) * Math.PI * 2;
+    d += ` L ${(cx + holeR * Math.cos(a)).toFixed(1)},${(cy + holeR * Math.sin(a)).toFixed(1)}`;
+  }
+  d += ' Z';
+
+  return (
+    <a href={href} className="group relative block cursor-pointer" style={{ width: size, height: size }}>
+      <div
+        className={`absolute inset-0 transition-transform duration-700 origin-center ${spin === 'cw' ? 'group-hover:rotate-12' : 'group-hover:-rotate-12'}`}
+      >
+        <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+          <path d={d} fillRule="evenodd" fill={fillColor} stroke={strokeColor} strokeWidth="1.5" />
+        </svg>
+      </div>
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5 pointer-events-none">
+        <span className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground group-hover:text-foreground/70 transition-colors duration-200">{num}</span>
+        <Icon className={`w-5 h-5 transition-transform duration-300 group-hover:scale-110 ${iconColor}`} />
+        <span className="font-heading text-[11px] uppercase text-foreground/70 leading-tight text-center px-4 group-hover:text-foreground transition-colors duration-200">{label}</span>
+      </div>
+    </a>
+  );
+}
+
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } },
@@ -33,6 +104,13 @@ const stagger = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { staggerChildren: 0.18 } },
 };
+
+const stats = [
+  { end: 10, suffix: '+', prefix: '', label: 'Years Coaching the Trades' },
+  { end: 500, suffix: '+', prefix: '', label: 'Businesses Transformed' },
+  { end: 40, suffix: 'M+', prefix: '$', label: 'Revenue Generated for Clients' },
+  { end: 4, suffix: '', prefix: '', label: 'Trade Specialties' },
+];
 
 const departments = [
   { label: 'Marketing', icon: Megaphone, id: 'marketing' },
@@ -111,7 +189,6 @@ const testimonials = [
 
 export function Coaching() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
-
   const prev = () =>
     setActiveTestimonial((i) => (i - 1 + testimonials.length) % testimonials.length);
   const next = () =>
@@ -150,7 +227,7 @@ export function Coaching() {
             initial="hidden"
             animate="visible"
             variants={fadeUp}
-            className="font-heading text-5xl md:text-7xl lg:text-8xl uppercase text-foreground mb-6 leading-none"
+            className="font-heading text-3xl sm:text-5xl md:text-7xl lg:text-8xl uppercase text-foreground mb-6 leading-none"
           >
             Coaching <br />
             <AnimatedGradientText>That Moves You</AnimatedGradientText>
@@ -171,72 +248,157 @@ export function Coaching() {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="flex flex-col sm:flex-row gap-6 justify-center"
           >
-            <CompassButton href="#departments">Explore Coaching</CompassButton>
-            <CompassButton to="/connect" className="bg-transparent text-primary hover:bg-primary hover:text-[#FCECBB]" arrowsClassName="opacity-0 group-hover:opacity-100 transition-opacity duration-300">Book a Call</CompassButton>
+            <CompassButton to="/connect">Book a Discovery Call</CompassButton>
           </motion.div>
         </div>
       </section>
 
-      {/* ── COACHING INTRO ───────────────────────────────────────── */}
-      <section className="relative pt-28 pb-16 bg-topography overflow-hidden">
-        <div className="container mx-auto px-6 md:px-12 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-
-            {/* Photo — left */}
+      {/* ── STATS BAR ────────────────────────────────────────────── */}
+      <section className="bg-foreground text-background">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          variants={stagger}
+          viewport={{ once: true }}
+          className="grid grid-cols-2 md:grid-cols-4"
+        >
+          {stats.map((s, i) => (
             <motion.div
-              initial={{ opacity: 0, x: -40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              className="relative"
+              key={s.label}
+              variants={fadeUp}
+              className={`py-8 px-6 flex flex-col items-center justify-center relative border-background/10 ${i % 2 === 0 ? 'border-r' : ''} ${i < 2 ? 'border-b md:border-b-0' : ''} ${i < 3 ? 'md:border-r' : ''}`}
             >
-              <span className="absolute -top-1 -left-1 w-6 h-6 border-t-[3px] border-l-[3px] border-primary z-20 pointer-events-none" />
-              <span className="absolute -top-1 -right-1 w-6 h-6 border-t-[3px] border-r-[3px] border-primary z-20 pointer-events-none" />
-              <span className="absolute -bottom-1 -left-1 w-6 h-6 border-b-[3px] border-l-[3px] border-primary z-20 pointer-events-none" />
-              <span className="absolute -bottom-1 -right-1 w-6 h-6 border-b-[3px] border-r-[3px] border-primary z-20 pointer-events-none" />
-              <img
-                src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2232&auto=format&fit=crop"
-                alt="Coaching hero"
-                className="relative z-10 w-full aspect-[4/3] object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                referrerPolicy="no-referrer"
-              />
+              <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
+              <CountUpStat {...s} className="text-background" />
             </motion.div>
+          ))}
+        </motion.div>
+      </section>
 
-            {/* Text — right */}
+      {/* ── DEPARTMENT COACHING INTRO ────────────────────────────── */}
+      <section id="departments" className="py-24 bg-background relative overflow-hidden border-y border-border/30">
+        <div className="absolute inset-0 bg-topography opacity-[0.30] pointer-events-none z-0" />
+        <div className="container relative z-10 mx-auto px-6 md:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+
+            {/* Left: text + accordion + CTAs */}
             <motion.div
               initial="hidden"
-              animate="visible"
+              whileInView="visible"
               variants={stagger}
+              viewport={{ once: true }}
+              className="space-y-8"
             >
-              <motion.p variants={fadeUp} className="text-sm font-semibold uppercase tracking-widest text-primary mb-6">
-                True North Strategies
-              </motion.p>
-
-              <motion.h1 variants={fadeUp} className="font-heading text-4xl md:text-5xl lg:text-6xl uppercase text-foreground mb-6 leading-none">
-                Coaching That <br />Moves You
-              </motion.h1>
-
-              <motion.p variants={fadeUp} className="text-xl font-script text-primary mb-8">
-                Real coaching for real trades businesses — built on honesty, accountability, and results.
-              </motion.p>
-
-              <motion.ul variants={fadeUp} className="space-y-3 mb-10">
-                {[
-                  'Tailored strategies for HVAC, Plumbing, and Electrical',
-                  'Proven frameworks to increase revenue and margin',
-                  'Leadership development for you and your management team',
-                  'No-nonsense accountability to keep you on track',
-                ].map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-foreground/80">
-                    <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </motion.ul>
-
-              <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4">
-                <CompassButton to="/connect">Book a Discovery Call</CompassButton>
-                <CompassButton href="#departments" className="bg-transparent text-primary hover:bg-primary hover:text-[#FCECBB]" arrowsClassName="opacity-0 group-hover:opacity-100 transition-opacity duration-300">Explore Coaching</CompassButton>
+              <motion.div variants={fadeUp}>
+                <p className="text-xs font-bold uppercase tracking-widest text-primary mb-4 flex items-center gap-3">
+                  <span className="w-8 h-px bg-primary" />
+                  True North Strategies
+                </p>
+                <h2 className="font-heading text-4xl md:text-5xl uppercase text-foreground mb-4 leading-none">
+                  Department <AnimatedGradientText>Coaching</AnimatedGradientText>
+                </h2>
+                <p className="text-lg font-script text-primary mb-4">
+                  Three disciplines. One integrated system.
+                </p>
+                <p className="text-muted-foreground leading-relaxed">
+                  Marketing, Sales, and Operations — when all three move together, home service businesses don't just grow. They scale with confidence.
+                </p>
               </motion.div>
+
+              {/* Department feature cards */}
+              <motion.div variants={fadeUp} className="space-y-3">
+                {[
+                  {
+                    id: 'mkt',
+                    href: '#marketing',
+                    label: 'Marketing',
+                    icon: Megaphone,
+                    summary: 'Build a local presence that drives inbound calls and keeps your pipeline full — without wasting budget on tactics that don\'t work for the trades.',
+                  },
+                  {
+                    id: 'sls',
+                    href: '#sales',
+                    label: 'Sales',
+                    icon: Target,
+                    summary: 'Train your team to close at the point of decision — with integrity, not pressure. Field-tested in HVAC, plumbing, and electrical.',
+                  },
+                  {
+                    id: 'ops',
+                    href: '#operations',
+                    label: 'Operations',
+                    icon: Settings,
+                    summary: 'Build the SOPs and systems that create consistent performance and give owners their time back.',
+                  },
+                ].map(({ id, label, icon: Icon, summary }) => (
+                  <div
+                    key={id}
+                    className="relative flex items-center gap-5 px-5 py-4 rounded-xl border border-border/30 bg-card"
+                    style={{ boxShadow: '0 0 24px 4px rgba(254,101,42,0.18)' }}
+                  >
+                    <div className="p-3 rounded-lg shrink-0 bg-muted">
+                      <Icon className="w-5 h-5 text-primary" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-heading text-sm uppercase tracking-wide text-foreground mb-1">{label}</p>
+                      <p className="text-muted-foreground text-xs leading-relaxed">{summary}</p>
+                    </div>
+                  </div>
+                ))}
+              </motion.div>
+
+            </motion.div>
+
+            {/* Right: gear diagram */}
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="relative flex items-center justify-center"
+            >
+              {/* Mobile: simple 3-card row */}
+              <div className="grid grid-cols-3 gap-3 w-full md:hidden">
+                {[
+                  { href: '#marketing', img: gear1, label: 'Marketing', icon: Megaphone },
+                  { href: '#sales', img: gear2, label: 'Sales', icon: Target },
+                  { href: '#operations', img: gear3, label: 'Operations', icon: Settings },
+                ].map(({ href, img, label, icon: Icon }) => (
+                  <a key={href} href={href} className="flex flex-col items-center gap-2 p-4 border border-primary/40 bg-card hover:border-primary hover:bg-primary/5 transition-all duration-300 group">
+                    <Icon className="w-6 h-6 text-primary" />
+                    <span className="font-heading text-xs uppercase text-foreground text-center group-hover:text-primary transition-colors">{label}</span>
+                  </a>
+                ))}
+              </div>
+
+              {/* Desktop: interlocking gear diagram */}
+              <div className="relative hidden md:block" style={{ width: 590, height: 470 }}>
+                {/* 01 Marketing — large, top-left */}
+                <a href="#marketing" className="absolute group block" style={{ top: 5, left: 5, width: 340, height: 340 }}>
+                  <img
+                    src={gear1}
+                    alt="Marketing"
+                    className="w-full h-full object-contain transition-transform duration-700 origin-center group-hover:rotate-12"
+                  />
+                </a>
+
+                {/* 02 Sales — medium, top-right, interlocking with Marketing */}
+                <a href="#sales" className="absolute group block" style={{ top: 38, left: 309, width: 275, height: 275 }}>
+                  <img
+                    src={gear2}
+                    alt="Sales"
+                    className="w-full h-full object-contain transition-transform duration-700 origin-center group-hover:-rotate-12"
+                  />
+                </a>
+
+                {/* 03 Operations — small, bottom-center, interlocking with both */}
+                <a href="#operations" className="absolute group block" style={{ top: 255, left: 234, width: 210, height: 210 }}>
+                  <img
+                    src={gear3}
+                    alt="Operations"
+                    className="w-full h-full object-contain transition-transform duration-700 origin-center group-hover:rotate-12"
+                  />
+                </a>
+              </div>
             </motion.div>
 
           </div>
@@ -244,98 +406,14 @@ export function Coaching() {
       </section>
 
       {/* ── HOW IT WORKS ─────────────────────────────────────────── */}
-      <section className="py-20 bg-foreground relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
-        <div className="absolute inset-0 bg-topography opacity-10 pointer-events-none" />
-        <div className="container mx-auto px-6 md:px-12 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <p className="text-xs font-bold uppercase tracking-widest text-primary mb-4">The Process</p>
-            <h2 className="font-heading text-4xl md:text-5xl uppercase text-background leading-none">
-              How We Work
-            </h2>
-          </motion.div>
-          <ProcessTimeline
-            columns={3}
-            steps={[
-              {
-                number: '01',
-                title: 'Discovery Call',
-                body: 'An honest, no-pressure conversation about where your business is and where you want it to go.',
-              },
-              {
-                number: '02',
-                title: 'Custom Roadmap',
-                body: 'We build a coaching plan tailored to your trade, your team, and your specific growth goals.',
-              },
-              {
-                number: '03',
-                title: 'Execute & Grow',
-                body: 'We work alongside you — in the trenches, holding you accountable every step of the way.',
-              },
-            ]}
-          />
-        </div>
-        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
-      </section>
-
-
-      {/* ── DEPARTMENT ICONS ─────────────────────────────────────── */}
-      <section id="departments" className="py-20 bg-background bg-grain border-y border-border/30">
-        <div className="container mx-auto px-6 md:px-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="font-heading text-4xl md:text-5xl uppercase text-foreground mb-4">
-              Department <AnimatedGradientText>Coaching</AnimatedGradientText>
-            </h2>
-            <p className="text-lg font-script text-primary max-w-xl mx-auto">
-              Three disciplines. One integrated system. Built for home service companies.
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            variants={stagger}
-            viewport={{ once: true }}
-            className="flex flex-wrap justify-center gap-6 md:gap-10"
-          >
-            {departments.map(({ label, icon: Icon, id }) => (
-              <motion.a
-                key={id}
-                href={`#${id}`}
-                variants={fadeUp}
-                className="group flex flex-col items-center gap-3"
-              >
-                <div className="w-20 h-20 md:w-24 md:h-24 bg-card border border-border/50 group-hover:border-primary/60 flex items-center justify-center transition-all duration-300 group-hover:shadow-[0_0_20px_rgba(232,96,10,0.25)] relative overflow-hidden">
-                  <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors duration-300" />
-                  <Icon className="w-8 h-8 md:w-10 md:h-10 text-primary relative z-10 group-hover:scale-110 transition-transform duration-300" />
-                </div>
-                <span className="font-heading text-sm uppercase tracking-widest text-foreground group-hover:text-primary transition-colors duration-300">
-                  {label}
-                </span>
-              </motion.a>
-            ))}
-          </motion.div>
-        </div>
-      </section>
+      <TrailSection />
 
       {/* ── INDIVIDUAL COACH SECTIONS ────────────────────────────── */}
-      {coachSections.map(({ id, label, title, body, bullets, img, imgAlt, flip }) => (
+      {coachSections.map(({ id, label, title, body, bullets, img, imgAlt, flip }, idx) => (
         <section
           key={id}
           id={id}
-          className="py-24 bg-background relative overflow-hidden border-b border-border/20"
+          className={`py-24 relative overflow-hidden border-b border-border/20 ${idx % 2 === 0 ? 'bg-card' : 'bg-background'}`}
         >
           <div className="container mx-auto px-6 md:px-12">
             <div className={`grid grid-cols-1 lg:grid-cols-2 gap-16 items-center ${flip ? 'lg:[&>*:first-child]:order-2' : ''}`}>
@@ -347,15 +425,10 @@ export function Coaching() {
                 viewport={{ once: true }}
                 className="relative"
               >
-                <span className="absolute -top-1 -left-1 w-6 h-6 border-t-[3px] border-l-[3px] border-primary z-20 pointer-events-none" />
-                <span className="absolute -top-1 -right-1 w-6 h-6 border-t-[3px] border-r-[3px] border-primary z-20 pointer-events-none" />
-                <span className="absolute -bottom-1 -left-1 w-6 h-6 border-b-[3px] border-l-[3px] border-primary z-20 pointer-events-none" />
-                <span className="absolute -bottom-1 -right-1 w-6 h-6 border-b-[3px] border-r-[3px] border-primary z-20 pointer-events-none" />
-                <img
+                <PhotoFrame
                   src={img}
                   alt={imgAlt}
-                  className="relative z-10 w-full aspect-[3/2] object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                  referrerPolicy="no-referrer"
+                  innerClassName="aspect-[3/2]"
                 />
               </motion.div>
 
@@ -434,7 +507,7 @@ export function Coaching() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7, ease: 'easeOut' }}
               viewport={{ once: true }}
-              className="w-full h-[480px] overflow-hidden"
+              className="w-full h-[280px] sm:h-[380px] md:h-[480px] overflow-hidden"
             >
               <img
                 src={mckenaPhoto}
@@ -446,15 +519,16 @@ export function Coaching() {
         </div>
       </section>
 
-      {/* ── CASE STUDY ───────────────────────────────────────────── */}
-      <section className="py-24 bg-background">
+      {/* ── FEATURED PARTNER ─────────────────────────────────────── */}
+      <section className="py-24 bg-card relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60rem] h-[30rem] bg-primary/10 rounded-full filter blur-[120px] pointer-events-none" />
         <div className="container mx-auto px-6 md:px-12">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-0 border border-border/50 shadow-2xl"
+            className="grid grid-cols-1 lg:grid-cols-2 gap-0 border border-primary/50 shadow-[0_0_40px_rgba(254,101,42,0.35),0_0_80px_rgba(254,101,42,0.15)]"
           >
             <div className="relative min-h-[400px] overflow-hidden group">
               <img
@@ -466,16 +540,15 @@ export function Coaching() {
               <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-transparent mix-blend-multiply" />
             </div>
 
-            <div className="bg-card p-12 md:p-20 flex flex-col justify-center relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full filter blur-[40px]" />
+            <div className="bg-card p-6 sm:p-10 md:p-12 lg:p-20 flex flex-col justify-center relative overflow-hidden">
               <div className="text-sm font-bold uppercase tracking-widest text-primary mb-8 flex items-center gap-4 relative z-10">
                 <span className="w-12 h-px bg-primary" />
-                Case Study
+                Featured Partner
               </div>
-              <h3 className="font-heading text-4xl md:text-5xl uppercase text-foreground mb-8 relative z-10">
+              <h3 className="font-heading text-3xl md:text-4xl lg:text-5xl uppercase text-foreground mb-8 relative z-10">
                 Goettl Air Conditioning & Plumbing
               </h3>
-              <blockquote className="text-lg text-foreground/90 italic mb-12 border-l-2 border-primary pl-6 relative z-10">
+              <blockquote className="text-lg text-foreground/90 italic mb-8 border-l-2 border-primary pl-6 relative z-10">
                 "True North Strategies completely transformed our CSR and dispatch operations. The accountability and systems they implemented directly led to our record-breaking quarter."
               </blockquote>
               <div className="grid grid-cols-2 gap-8 mb-12 relative z-10">
@@ -488,23 +561,16 @@ export function Coaching() {
                   <p className="text-xs uppercase tracking-widest text-muted-foreground font-semibold">Added Revenue</p>
                 </div>
               </div>
-              <Button
-                asChild
-                variant="link"
-                className="text-foreground hover:text-primary p-0 h-auto font-bold uppercase tracking-wider justify-start group relative z-10"
-              >
-                <Link to="/about" className="flex items-center gap-2">
-                  Read Full Story
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
-                </Link>
-              </Button>
+              <Link to="/about" className="flex items-center gap-2 text-foreground hover:text-primary font-bold uppercase tracking-wider group relative z-10 transition-colors">
+                Read Full Story <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+              </Link>
             </div>
           </motion.div>
         </div>
       </section>
 
       {/* ── WHY TRUE NORTH ───────────────────────────────────────── */}
-      <section className="py-24 bg-background bg-topography relative overflow-hidden border-t border-border/30">
+      <section className="py-24 bg-background relative overflow-hidden border-t border-border/30">
         <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full filter blur-[80px] animate-float z-0" />
         <div className="container mx-auto px-6 md:px-12 relative z-10">
           <motion.div
@@ -586,6 +652,7 @@ export function Coaching() {
         heading="Frequently Asked"
         headingHighlight="Questions"
         subheading="Everything you want to know before taking the next step."
+        bgClass="bg-card"
         items={[
           {
             question: 'How long does a typical coaching engagement last?',
@@ -615,7 +682,8 @@ export function Coaching() {
       />
 
       {/* ── CTA FORM ─────────────────────────────────────────────── */}
-      <section className="py-32 bg-background relative overflow-hidden">
+      <section className="py-32 bg-card relative overflow-hidden">
+        <div className="absolute inset-0 bg-topography opacity-[0.30] pointer-events-none" />
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[40rem] h-[20rem] bg-primary/10 rounded-full filter blur-[100px] z-0" />
 
         <div className="container relative z-10 mx-auto px-6 md:px-12 max-w-6xl">

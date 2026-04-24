@@ -7,7 +7,7 @@ import { AnimatedGradientText } from '@/components/AnimatedGradientText';
 import { CompassButton } from '@/components/ui/compass-button';
 import { Compass, Phone, Mail, MapPin, CheckCircle2, ArrowRight } from 'lucide-react';
 import stackedLogo from '/Images/True North_stacked full logo grey.svg';
-import { FaqSection } from '@/components/FaqSection';
+import { CountUpStat } from '@/components/CountUpStat';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -18,6 +18,13 @@ const stagger = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
 };
+
+const stats = [
+  { end: 10, suffix: '+', prefix: '', label: 'Years Coaching the Trades' },
+  { end: 500, suffix: '+', prefix: '', label: 'Businesses Transformed' },
+  { end: 40, suffix: 'M+', prefix: '$', label: 'Revenue Generated for Clients' },
+  { end: 4, suffix: '', prefix: '', label: 'Trade Specialties' },
+];
 
 const trustPoints = [
   'Response within one business day — no automated runaround',
@@ -62,7 +69,7 @@ export function Connect() {
             initial="hidden"
             animate="visible"
             variants={fadeUp}
-            className="font-heading text-6xl md:text-8xl uppercase text-foreground mb-6 leading-[0.85]"
+            className="font-heading text-4xl sm:text-6xl md:text-8xl uppercase text-foreground mb-6 leading-[0.85]"
           >
             Book a <br />
             <AnimatedGradientText>Discovery Call</AnimatedGradientText>
@@ -72,44 +79,38 @@ export function Connect() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.4 }}
-            className="text-2xl font-script text-primary max-w-2xl mx-auto"
+            className="text-xl md:text-2xl font-script text-primary max-w-2xl mx-auto"
           >
             One honest conversation can change the direction of your business.
           </motion.p>
         </div>
       </section>
 
-      {/* ── FAQ ──────────────────────────────────────────────────── */}
-      <FaqSection
-        heading="Before You"
-        headingHighlight="Reach Out"
-        subheading="Honest answers to the questions we get most."
-        items={[
-          {
-            question: 'What happens after I submit this form?',
-            answer: 'A True North coach — not a salesperson — will reach out within one business day to schedule a 30-minute discovery call. You\'ll talk directly with someone who knows your trade.',
-          },
-          {
-            question: 'Is the discovery call free?',
-            answer: 'Yes. There\'s no charge and no obligation. It\'s a real conversation about your business, not a sales pitch. If we\'re not the right fit, we\'ll tell you.',
-          },
-          {
-            question: 'How much does coaching cost?',
-            answer: 'Pricing varies based on the scope of engagement and departments involved. We\'ll discuss options that make sense for your business size and goals on the discovery call — no surprises.',
-          },
-          {
-            question: 'Do I need to be a certain size to work with you?',
-            answer: 'We work with companies ranging from $500K to $10M+ in annual revenue. If you\'re serious about growth and willing to do the work, we want to talk.',
-          },
-          {
-            question: 'What if I\'m not sure coaching is right for me?',
-            answer: 'That\'s exactly what the discovery call is for. We\'ll give you honest feedback — even if that means telling you it\'s not the right time. We\'d rather build trust than push a bad fit.',
-          },
-        ]}
-      />
+      {/* ── STATS BAR ────────────────────────────────────────────── */}
+      <section className="bg-foreground text-background">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          variants={stagger}
+          viewport={{ once: true }}
+          className="grid grid-cols-2 md:grid-cols-4"
+        >
+          {stats.map((s, i) => (
+            <motion.div
+              key={s.label}
+              variants={fadeUp}
+              className={`py-8 px-6 flex flex-col items-center justify-center relative border-background/10 ${i % 2 === 0 ? 'border-r' : ''} ${i < 2 ? 'border-b md:border-b-0' : ''} ${i < 3 ? 'md:border-r' : ''}`}
+            >
+              <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
+              <CountUpStat {...s} className="text-background" />
+            </motion.div>
+          ))}
+        </motion.div>
+      </section>
 
       {/* ── MAIN CONTENT: FORM + SIDEBAR ─────────────────────────── */}
-      <section className="py-24 bg-background bg-topography relative overflow-hidden">
+      <section className="py-24 bg-card relative overflow-hidden">
+        <div className="absolute inset-0 bg-topography opacity-[0.30] pointer-events-none" />
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[50rem] h-[25rem] bg-primary/8 rounded-full filter blur-[120px] z-0" />
 
         <div className="container relative z-10 mx-auto px-6 md:px-12">

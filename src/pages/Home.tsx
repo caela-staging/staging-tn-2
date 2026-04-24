@@ -104,7 +104,6 @@ function VideoCarousel() {
 
   return (
     <section className="py-24 bg-foreground relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
       {/* Gradient spotlight behind video cards */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70rem] h-[30rem] bg-gradient-to-r from-primary/30 via-amber-400/20 to-primary/30 rounded-full filter blur-[100px] pointer-events-none" />
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[50rem] h-[20rem] bg-primary/10 rounded-full filter blur-[120px] pointer-events-none" />
@@ -216,18 +215,18 @@ export function Home() {
         }
         description={<span className="font-script text-primary text-2xl">Business coaching built for <span className="text-foreground">home service</span> contractors who refuse to settle.</span>}
       >
-        {/* Buttons + Stats locked to same width */}
-        <div className="flex flex-col gap-16 w-fit">
+        {/* Buttons + Stats */}
+        <div className="flex flex-col gap-8 md:gap-16 w-full max-w-2xl">
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4">
             <CompassButton to="/coaching">Discover Coaching</CompassButton>
-            <CompassButton to="/connect" className="bg-transparent text-primary hover:bg-primary hover:text-[#FCECBB]" arrowsClassName="opacity-0 group-hover:opacity-100 transition-opacity duration-300">Book a Discovery Call</CompassButton>
+            <CompassButton to="/connect">Book a Discovery Call</CompassButton>
           </div>
 
-          {/* Stats Ticker */}
-          <div className="flex justify-between w-full">
+          {/* Stats — 2 cols on mobile, 4 across on sm+ */}
+          <div className="grid grid-cols-2 sm:flex sm:justify-between gap-6 sm:gap-0">
             {stats.map((stat, i) => (
-              <div key={stat.label} className={`flex-1 min-w-0 ${i > 0 ? 'border-l border-white/20 pl-3' : ''}`}>
+              <div key={stat.label} className={`min-w-0 ${i > 0 ? 'sm:border-l sm:border-white/20 sm:pl-3' : ''} ${i % 2 !== 0 ? 'border-l border-white/20 pl-3 sm:border-l-0 sm:pl-0' : ''}`}>
                 <CountUpStat {...stat} white />
               </div>
             ))}
@@ -236,9 +235,8 @@ export function Home() {
       </AnimatedHeroSection>
 
       {/* Connect With Your Coach Section */}
-      <section className="py-24 md:py-32 bg-card bg-topography relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
-
+      <section className="py-24 md:py-32 bg-card relative overflow-hidden">
+        <div className="absolute inset-0 bg-topography opacity-[0.30] pointer-events-none" />
         <div className="container mx-auto px-6 md:px-12 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -255,7 +253,7 @@ export function Home() {
               <span className="absolute -bottom-1 -right-1 w-6 h-6 border-b-[3px] border-r-[3px] border-primary z-20 pointer-events-none" />
               <CoachVideo
                 src={coachVideo}
-                className="relative z-10 w-full h-[488px] object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                className="relative z-10 w-full h-[280px] sm:h-[380px] md:h-[488px] object-cover grayscale hover:grayscale-0 transition-all duration-700"
               />
             </motion.div>
 
@@ -299,7 +297,6 @@ export function Home() {
 
       {/* Meet the Coaches */}
       <section className="py-24 bg-background bg-grain relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
         <div className="container mx-auto px-6 md:px-12 relative z-10">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -350,8 +347,7 @@ export function Home() {
         </div>
       </section>
 
-      <section className="py-24 bg-background border-border/30 relative">
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+      <section className="py-24 bg-card border-border/30 relative">
         <div className="container mx-auto px-6 md:px-12">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -398,9 +394,11 @@ export function Home() {
         </div>
       </section>
 
+      {/* Video Testimonial Carousel */}
+      <VideoCarousel />
+
       {/* Logo Feature / Quote */}
       <section className="py-32 bg-background relative overflow-hidden flex items-center justify-center min-h-[60vh]">
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
         <motion.div
           initial={{ rotate: 0 }}
           animate={{ rotate: 360 }}
@@ -433,14 +431,13 @@ export function Home() {
 
       {/* Credentials / Values Block */}
       <section className="py-24 bg-card relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
         <div className="container mx-auto px-6 md:px-12 relative z-10">
           <motion.div
             initial="hidden"
             whileInView="visible"
             variants={staggerContainer}
             viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-0 border border-border/40"
+            className="grid grid-cols-1 md:grid-cols-3 gap-0 border border-white/[0.06]"
           >
             {[
               { num: '01', icon: <CheckCircle2 className="w-5 h-5 text-primary" />, title: 'Authentic & Honest', body: "We don't sugarcoat the truth. We provide clear, direct feedback and actionable strategies that actually work in the real world of home services." },
@@ -450,11 +447,11 @@ export function Home() {
               <motion.div
                 key={i}
                 variants={fadeUpVariant}
-                className="group relative overflow-hidden p-10 md:p-12 border-t-[3px] border-t-transparent hover:border-t-primary transition-all duration-300 hover:shadow-[inset_0_0_40px_rgba(254,101,42,0.06)] cursor-default"
+                className="group relative overflow-hidden p-10 md:p-12 border-t-[3px] border-t-transparent hover:border-t-primary transition-all duration-300 hover:bg-white/[0.03] cursor-default"
                 style={{ borderRight: i < 2 ? '1px solid rgba(255,255,255,0.06)' : 'none' }}
               >
                 {/* Big background number */}
-                <span className="absolute -top-4 right-4 font-heading text-[8rem] leading-none text-foreground/[0.04] group-hover:text-primary/10 transition-colors duration-500 select-none pointer-events-none">
+                <span className="absolute -top-4 right-4 font-heading text-[8rem] leading-none text-white/[0.04] group-hover:text-primary/[0.08] transition-colors duration-500 select-none pointer-events-none">
                   {item.num}
                 </span>
 
@@ -464,9 +461,9 @@ export function Home() {
                   <h3 className="font-heading text-2xl uppercase text-foreground tracking-normal">{item.title}</h3>
                 </div>
 
-                {/* Description — slides up on hover */}
-                <div className="relative z-10 overflow-hidden">
-                  <p className="text-muted-foreground leading-relaxed translate-y-2 group-hover:translate-y-0 opacity-70 group-hover:opacity-100 transition-all duration-400">
+                {/* Description */}
+                <div className="relative z-10">
+                  <p className="text-foreground/50 leading-relaxed group-hover:text-foreground/80 transition-colors duration-300">
                     {item.body}
                   </p>
                 </div>
@@ -480,15 +477,15 @@ export function Home() {
       </section>
 
       {/* Case Study */}
-      <section className="py-24 bg-card relative">
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+      <section className="py-24 bg-card relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60rem] h-[30rem] bg-primary/10 rounded-full filter blur-[120px] pointer-events-none" />
         <div className="container mx-auto px-6 md:px-12">
           <motion.div 
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-0 border border-border/50 shadow-2xl"
+            className="grid grid-cols-1 lg:grid-cols-2 gap-0 border border-primary/50 shadow-[0_0_40px_rgba(254,101,42,0.35),0_0_80px_rgba(254,101,42,0.15)]"
           >
             <div className="relative min-h-[400px] overflow-hidden group">
               <img 
@@ -499,14 +496,13 @@ export function Home() {
               />
               <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-transparent mix-blend-multiply"></div>
             </div>
-            <div className="bg-card p-12 md:p-20 flex flex-col justify-center relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[40px]"></div>
+            <div className="bg-card p-6 sm:p-10 md:p-12 lg:p-20 flex flex-col justify-center relative overflow-hidden">
               <div className="text-sm font-bold uppercase tracking-widest text-primary mb-8 flex items-center gap-4 relative z-10">
                 <span className="w-12 h-px bg-primary"></span>
                 Featured Partner
               </div>
-              <h3 className="font-heading text-5xl uppercase text-foreground mb-8 relative z-10">Goettl Air Conditioning & Plumbing</h3>
-              <blockquote className="text-xl text-foreground/90 italic mb-12 border-l-2 border-primary pl-6 relative z-10">
+              <h3 className="font-heading text-3xl md:text-4xl lg:text-5xl uppercase text-foreground mb-8 relative z-10">Goettl Air Conditioning & Plumbing</h3>
+              <blockquote className="text-lg text-foreground/90 italic mb-8 border-l-2 border-primary pl-6 relative z-10">
                 "True North Strategies completely transformed our CSR and dispatch operations. The accountability and systems they implemented directly led to our record-breaking quarter."
               </blockquote>
               <div className="grid grid-cols-2 gap-8 mb-12 relative z-10">
@@ -527,15 +523,12 @@ export function Home() {
         </div>
       </section>
 
-      {/* Video Testimonial Carousel */}
-      <VideoCarousel />
-
       {/* Testimonials */}
       <TestimonialsStack />
 
       {/* CTA Form Section */}
-      <section className="py-32 bg-background relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+      <section className="py-32 bg-card relative overflow-hidden">
+        <div className="absolute inset-0 bg-topography opacity-[0.30] pointer-events-none" />
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[40rem] h-[20rem] bg-primary/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[100px] z-0" />
 
         <div className="container relative z-10 mx-auto px-6 md:px-12 max-w-6xl">

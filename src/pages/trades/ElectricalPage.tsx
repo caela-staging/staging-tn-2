@@ -8,12 +8,11 @@ const data: TradePageData = {
   heroHeadline: ['Electrical', 'Coaching'],
   heroImg: 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=2069&auto=format&fit=crop',
   icon: Zap,
-  overviewTitle: 'Electrical Companies That Grow Are Built Differently',
+  overviewTitle: 'Growing Electrical Companies Are Built Differently',
   overviewImg: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=2070&auto=format&fit=crop',
   overviewBody: [
     'Electrical is a trust-driven trade. Homeowners invite electricians into their homes because safety matters — and that trust creates an enormous opportunity to build long-term relationships if you know how to handle it. Most electrical companies don\'t.',
     'At True North, we coach electrical companies to leverage that trust at every step: from how your CSRs answer the phone to how your electricians present panel upgrades and home safety evaluations on-site. We build the sales culture and operational infrastructure that turns one-time service calls into lifetime customers.',
-    'From single-truck startups to multi-location operations, our coaching is built around the unique rhythms and revenue drivers of the electrical trade.',
   ],
   steps: [
     {
@@ -61,6 +60,32 @@ const data: TradePageData = {
     'Pricing strategy and flat-rate menu optimization',
     'Financial reporting and KPI dashboards for electrical companies',
   ],
+  pitchSection: {
+    heading1: 'The Electrical Business You Knew You Could',
+    heading1Highlight: 'Build',
+    body1: "We work with electrical business owners who are past the startup hustle — and ready to build something that lasts. Whether you're at $2M or gunning for $10M, we help you create the structure, strategy, and support to get there. You're not here for fluff. Neither are we.",
+    listHeading1: "We've helped electrical companies:",
+    list1: [
+      'Systematize home safety inspections that naturally uncover high-ticket work',
+      'Build panel upgrade and generator sales processes that run without the owner',
+      'Grow average ticket by creating a consistent options-presentation culture',
+      'Develop a technician training program that reduces performance variability',
+      'Get the owner out of day-to-day service calls and into business leadership',
+    ],
+    heading2: 'What the Clarity Call Is',
+    heading2Highlight: '(And Why You Want One)',
+    body2: "Not a sales call. It's a real conversation with the sharpest coaching braintrust in the trades. We've worked with hundreds of electrical companies. Our team can spot operational breakdowns, financial blind spots, and sales leaks from a mile away. Within 30 minutes, we'll help you identify your biggest change-making lever — the one move that starts to shift everything.",
+    listHeading2: "You'll walk away with:",
+    list2: [
+      "A sharper understanding of what's holding you back",
+      'A fresh perspective on how to lead your business forward',
+      'Specific, grounded next steps you can act on immediately',
+    ],
+    closingLine: 'Your "aha" moment is waiting. Book your call.',
+    sidebarHeadline: 'Book a Discovery Call',
+    sidebarBody: "This is a real conversation — not a pitch. You'll work directly with one of our senior electrical coaches to map out exactly where your business is leaking revenue, time, and momentum. In 30 minutes, you'll leave with a clearer picture of your biggest lever and a plan to pull it. No pressure. No fluff. Just clarity.",
+    sidebarCtaLabel: 'Book Your Discovery Call',
+  },
   coaches: [
     {
       name: 'McKena Harless',

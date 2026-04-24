@@ -5,7 +5,8 @@ import { StepContactForm } from '@/components/StepContactForm';
 
 export function FindYourTrueNorth() {
   return (
-    <section className="py-32 bg-background relative overflow-hidden">
+    <section className="py-32 bg-card relative overflow-hidden">
+      <div className="absolute inset-0 bg-topography opacity-[0.30] pointer-events-none" />
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[40rem] h-[20rem] bg-primary/10 rounded-full filter blur-[100px] z-0" />
 
       <div className="container relative z-10 mx-auto px-6 md:px-12 max-w-6xl">
